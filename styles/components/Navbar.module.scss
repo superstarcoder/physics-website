@@ -1,3 +1,7 @@
+$small: 700px;
+$medium: 1000px;
+$large: 1200px;
+
 .box {
 	all: unset;
 	cursor: pointer;
@@ -57,13 +61,28 @@
 }
 
 .navbarContainer[id="expanded"] {
+	// <= small
+	@media screen and (max-width: $small){
+		width: 100vw;
+	}
+	// medium to large
+	@media screen and (min-width: $small) and (max-width: $large) {
+		width: 50vw;
+	}
+	// >= large
+	@media screen and (min-width: $large){
+		width: 30vw;
+	}
+
+}
+
+.navbarContainer[id="expanded"] {
 	margin: 0;
 	display: flex;
 	position: absolute;
 	flex-direction: column;
-	width: 30vw;
 	margin: 0;
-	height: 100vh;
+	height: max-content;
 	background-color: #485BFF;
 	z-index: 10;
 	min-height: 100vh;
