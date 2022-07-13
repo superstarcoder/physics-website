@@ -70,16 +70,14 @@
 	height:min-content;
 }	
 
-
-.navFolderTwo {
-	max-height: 0;
-	transition: max-height 0.25s ease-out;
-	// height: 0vh;
-	padding-left: 2vw;
-	margin-left: 2vw;
+.navFolder {
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
 }
 
-.navFolder, .navFolderTwo[id="expanded"], .navFolderThree{
+.navFolder {
 	// height: min-content;
 	max-height: 500px;
 	display: flex;
@@ -98,28 +96,6 @@
 	transition: max-height 0.25s ease-in;
 }
 
-
-// .navFolderTwo[id=""] {
-// 	display: flex;
-// 	color: white;
-// 	flex-direction: column;
-// 	p {
-// 		font-size: 1.5em;
-// 		span {
-// 			writing-mode: vertical-lr;
-// 			cursor: pointer;
-// 		}
-// 	}
-// 	// padding-bottom: 7vh;
-// 	padding-left: 2vw;
-// 	margin-left: 2vw;	
-// }
-
-.navFolderTwo[id=""] > * {
-	max-height: 0vh;
-}
-
-
 .navItems {
 	display: flex;
 	color: white;
@@ -130,19 +106,4 @@
 	}
 	padding-left: 2vw;
 	margin-left: 2vw;
-}
-
-.navItems {
-	background-color: #4873FF;
-}
-
-.navFolder {
-	background-color: #485BFF;
-}
-.navFolderTwo {
-	background-color: #4867FF;
-}
-
-.navFolderThree {
-	background-color: #4873FF;
 }
