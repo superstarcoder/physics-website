@@ -9,7 +9,6 @@ $large: 1200px;
 	cursor: pointer;
    
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
-	margin: 3em 6em 3em; // top; right and left; bottom 
 	background-color: none;
 	display: flex;
 	flex-direction: column;
@@ -34,7 +33,9 @@ $large: 1200px;
 	}
 	
 	.cardTitleBar {
-	  height: 20%;
+	  min-height: 20%;
+	  height: min-content;
+	//   min-height: fit-content;
 	  width: 100%;
 	  justify-self: flex-end;
 	  display: flex;
@@ -49,23 +50,27 @@ $large: 1200px;
   
 	// <= small
 	@media screen and (max-width: $small){
+	  margin: 3em 3em 3em; // top; right and left; bottom 
 	  width: 70%;
 	  .cardTitleBar {
-		font-size: 3vw;
+		font-size: 2em;
 	  }
 	}
 	// medium to large
 	@media screen and (min-width: $small) and (max-width: $large) {
+	  margin: 3em 2em 3em; // top; right and left; bottom 
 	  width: 20%;
 	  .cardTitleBar {
-		font-size: 2vw;
+		font-size: 1em;
 	  }
 	}
 	// >= large
 	@media screen and (min-width: $large){
+	  margin: 3em 6em 3em; // top; right and left; bottom 
 	  width: 17%;
 	  .cardTitleBar {
-		font-size: 1vw;
+		// font-size: 1vw;
+		font-size: 1.3em;
 	  }
 	}
 	height: min-content;
