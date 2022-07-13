@@ -4,6 +4,7 @@ import styles from '../styles/apPhysics.module.scss'
 
 import Card from '../components/Card'
 import MiniCard from '../components/MiniCard'
+import Navbar from '../components/Navbar'
 
 const apPhysics: NextPage = () => {
   return (
@@ -13,6 +14,8 @@ const apPhysics: NextPage = () => {
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Navbar />
+
 
       <main className={styles.main}>
         {/* <div className={styles.background}></div> */}

@@ -1,0 +1,148 @@
+.box {
+	all: unset;
+	cursor: pointer;
+
+	width: 4em;
+	height: 4em;
+	background-color: #485BFF;
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	z-index: 11;
+}
+
+// .flip {
+// 	display: none;
+// 	transform: rotate(-180deg);
+// }
+
+
+.navArrow {
+	-moz-transition: transform 1s;
+	-webkit-transition: transform 1s;
+	transition: transform 1s;
+}
+.navArrow[data-open="true"] {
+ 	transform: rotate(90deg);
+}
+
+.line {
+	margin: 5% 0% 5%;
+	display: flex;
+	height: 10%;
+	width: 70%;
+	border-radius: 1em;
+	background-color: #CED3FF;
+}
+
+.navbarContainer {
+	padding-top: 4em;
+	transition: all 0.4s;
+}
+
+.navbarContainer[id=""] {
+	// display: none;
+	margin: 0;
+	display: flex;
+	position: absolute;
+	flex-direction: column;
+	width: 0vw;
+	margin: 0;
+	min-height: 100vh;
+	max-height: fit-content;
+	background-color: #485BFF;
+	z-index: 10;
+}
+
+.navbarContainer[id="expanded"] {
+	margin: 0;
+	display: flex;
+	position: absolute;
+	flex-direction: column;
+	width: 30vw;
+	margin: 0;
+	height: 100vh;
+	background-color: #485BFF;
+	z-index: 10;
+	min-height: 100vh;
+	height:min-content;
+}	
+
+
+.navFolderTwo {
+	max-height: 0;
+	transition: max-height 0.25s ease-out;
+	// height: 0vh;
+	padding-left: 2vw;
+	margin-left: 2vw;
+}
+
+.navFolder, .navFolderTwo[id="expanded"], .navFolderThree{
+	// height: min-content;
+	max-height: 500px;
+	display: flex;
+	color: white;
+	flex-direction: column;
+	p {
+		font-size: 1.5em;
+		span {
+			writing-mode: vertical-lr;
+			cursor: pointer;
+		}
+	}
+	// padding-bottom: 7vh;
+	padding-left: 2vw;
+	margin-left: 2vw;
+	transition: max-height 0.25s ease-in;
+}
+
+
+// .navFolderTwo[id=""] {
+// 	display: flex;
+// 	color: white;
+// 	flex-direction: column;
+// 	p {
+// 		font-size: 1.5em;
+// 		span {
+// 			writing-mode: vertical-lr;
+// 			cursor: pointer;
+// 		}
+// 	}
+// 	// padding-bottom: 7vh;
+// 	padding-left: 2vw;
+// 	margin-left: 2vw;	
+// }
+
+.navFolderTwo[id=""] > * {
+	max-height: 0vh;
+}
+
+
+.navItems {
+	display: flex;
+	color: white;
+	height: min-content;
+	flex-direction: column;
+	p {
+		font-size: 1.5em;
+	}
+	padding-left: 2vw;
+	margin-left: 2vw;
+}
+
+.navItems {
+	background-color: #4873FF;
+}
+
+.navFolder {
+	background-color: #485BFF;
+}
+.navFolderTwo {
+	background-color: #4867FF;
+}
+
+.navFolderThree {
+	background-color: #4873FF;
+}
