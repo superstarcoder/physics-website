@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Oleo+Script&family=Open+Sans&display=swap');
+$small: 700px;
+$medium: 1000px;
+$large: 1200px;
+
+.container {
+	display: flex;
+	flex-direction: row;
+}
+
+// .cards {
+//     display: flex;
+//     flex-direction: row;
+//     width: 100%;
+//     min-height: 100%;
+	
+//     justify-content: center;
+//     align-self: center;
+//     justify-self: center;
+//     flex-wrap: wrap;
+// 	background-color: #CCF0FF;
+// 	align-items: center;
+// 	justify-content: space-evenly;
+// 	// <= small
+// 	@media screen and (max-width: $small){
+// 		padding: 0em 0em 0em;
+// 	}
+// 	// medium to large
+// 	@media screen and (min-width: $small) and (max-width: $large) {
+// 		padding: 0em 0em 0em;
+// 	}
+// 	// >= large
+// 	@media screen and (min-width: $large){
+// 		padding: 0em 10em 0em;
+// 	}
+// }
+
+// .miniCards {
+//     display: flex;
+//     flex-direction: row;
+//     width: 100%;
+//     height: 100%;
+//     justify-content: center;
+//     align-self: center;
+//     justify-self: center;
+// 	margin: 0.5em 0em 0.5em;
+// 	align-items: center;
+// 	justify-content: space-evenly;
+
+// 	@media screen and (max-width: $small){
+//     	flex-wrap: wrap;
+// 		padding: 0em 0em 0em;
+// 	}
+// 	// medium to large
+// 	@media screen and (min-width: $small) and (max-width: $large) {
+// 		padding: 0em 0em 0em;
+// 	}
+// 	// >= large
+// 	@media screen and (min-width: $large){
+// 		padding: 0em 10em 0em;
+// 	}
+// }
+
+
+.main {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	min-height: 100vh;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-items: center;
+	background-color: white;
+	background-position: 50% 100%;
+	background-size: cover;
+	background-repeat: repeat-y;
+	overflow-x: hidden;
+	min-width: 100%;
+	// font-family: 'Open Sans', sans-serif;
+	font-family: 'Nunito', sans-serif;
+	font-weight: 400;
+  
+	h1, h2 {
+	  font-family: 'Oleo Script', cursive;
+  
+	  // font-family: 'Oleo Script', cursive;
+  
+  
+	  color: rgb(0, 0, 0);
+	  font-weight: 300;
+	  justify-self: flex-start;
+	  // font-family: 'Patrick Hand', cursive;
+	  // font-family: 'Poppins', sans-serif;
+	}
+	h1 {
+	//   font-size: 5em;
+	  margin: 0.1em;
+	  a {
+		color: #3385FF;
+	  }
+	}
+	@media screen and (max-width: $large) {
+		h1 {
+			font-size: 4em;
+		}
+	}
+	h2 {
+	  font-size: 2em;
+		margin-bottom: 0.5em;
+		margin-top: 0em;
+	  justify-self: flex-start;
+	}
+}
+
+.chapter {
+	background-color: hsl(200, 100%, 90%);
+	min-height: fit-content;
+	width: 100vw;
+	padding: 0em;
+	margin: 0em;
+}
+
+.chapterTitle {
+	background-color: #B2E8FF;
+	width: fit-content;
+	padding: 0.5em 1.2em 0.5em;
+	margin: 0;
+}
+
+.subChapterTitle {
+	font-size: 1.4em;
+}
+
+.subChapter {
+	padding: 0.5em 2em 0em;
+}
+
+.video {
+	background-color: #CFC7FF;
+	margin: 1em;
+	width: fit-content;
+	padding: 0.5em;
+	border-radius: 1em;
+	font-size: 1.2em;
+}

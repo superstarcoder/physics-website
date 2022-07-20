@@ -18,6 +18,8 @@ $large: 1200px;
 	filter: brightness(85%);
 	transition: 0.4s;
 	border-radius: 0.7em;
+	margin-top: 3em;
+	margin-bottom: 3em;
   
   
 	.cardBackground {
@@ -51,23 +53,23 @@ $large: 1200px;
 	// <= small
 	@media screen and (max-width: $small){
 	  margin: 3em 3em 3em; // top; right and left; bottom 
-	  width: 70%;
+	  width: 70vw;
 	  .cardTitleBar {
-		font-size: 2em;
+		font-size: 1.3em;
 	  }
 	}
 	// medium to large
 	@media screen and (min-width: $small) and (max-width: $large) {
-	  margin: 3em 2em 3em; // top; right and left; bottom 
-	  width: 20%;
+	  margin: 3em 0.5em 3em; // top; right and left; bottom 
+	  width: 30vw;
 	  .cardTitleBar {
-		font-size: 1em;
+		font-size: 1.3em;
 	  }
 	}
 	// >= large
 	@media screen and (min-width: $large){
-	  margin: 3em 6em 3em; // top; right and left; bottom 
-	  width: 17%;
+	  margin: 3em 1em 3em; // top; right and left; bottom 
+	  width: 16vw;
 	  .cardTitleBar {
 		// font-size: 1vw;
 		font-size: 1.3em;

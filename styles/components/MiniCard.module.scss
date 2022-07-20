@@ -9,7 +9,7 @@ $large: 1200px;
 	cursor: pointer;
 
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
-	margin: 1em 6em 0em; // top; right and left; bottom 
+	margin: 1em 2em 0em; // top; right and left; bottom 
 	display: flex;
 	align-self: center;
 	text-align: center;
@@ -22,7 +22,7 @@ $large: 1200px;
 
 	// <= small
 	@media screen and (max-width: $small) {
-		width: 70%;
+		width: 70vw;
 
 		.cardTitleBar {
 			font-size: 1.2em;
@@ -31,7 +31,7 @@ $large: 1200px;
 
 	// small to large
 	@media screen and (min-width: $small) and (max-width: $large) {
-		width: 20%;
+		width: 30vw;
 
 		.cardTitleBar {
 			font-size: 1.2em;
@@ -40,7 +40,7 @@ $large: 1200px;
 
 	// >= large
 	@media screen and (min-width: $large) {
-		width: 17%;
+		width: 16vw;
 	}
 
 	height: min-content;
