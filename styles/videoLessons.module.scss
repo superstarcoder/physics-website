@@ -145,3 +145,53 @@ $large: 1200px;
 	border-radius: 1em;
 	font-size: 1.2em;
 }
+
+.videoItemContainer {
+	display: flex;
+	flex-direction: row;
+}
+
+.videoButton {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	width: 2.5em;
+	height: 2.5em;
+	align-self: center;
+	margin: 0em 0.2em 0em;
+	// border-width: 0;
+	-webkit-box-shadow: 13px 12px 65px 0px rgba(0,0,0,0.06);
+	-moz-box-shadow: 13px 12px 65px 0px rgba(0,0,0,0.06);
+	box-shadow: 13px 12px 65px 0px rgba(0,0,0,0.06);
+	border-radius: 0.4em;
+	// border-style:none;
+	// border: 0;
+}
+
+.videoEditButton {
+	background-color: #85ff8b;
+}
+
+.videoAddButton {
+	background-color: #8AB3FF
+}
+
+.videoDeleteButton {
+	background-color: #ff7575;
+}
+
+.moveButtonsContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.moveUp, .moveDown{
+	width: 2.5em;
+	height: 1.5em;
+	background-color: #8ab3ff;
+}
+
+// .arrowIcon {
+// 	stroke-width: 5em;
+// }

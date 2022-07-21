@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mantine/core": "^4.2.12",
+    "@mantine/hooks": "^4.2.12",
+    "@mantine/rte": "^4.2.12",
     "@types/react-redux": "^7.1.23",
     "jquery": "^3.6.0",
     "next": "12.1.0",

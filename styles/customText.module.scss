@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Oleo+Script&family=Open+Sans&display=swap');
+$small: 700px;
+$medium: 1000px;
+$large: 1200px;
+
+
+.container {
+	display: flex;
+	flex-direction: row;
+}
+
+.textEditor {
+}
+
+.main {
+	display: flex;
+	justify-self: center;
+}
+
+.textEditorContainer {
+	display: flex;
+	margin: 5em;
+	flex-direction: column;
+	justify-self: center;
+}
+
+.editButton {
+	width: min-content;
+	margin-top: 0.5em;
+}

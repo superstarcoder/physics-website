@@ -4,13 +4,14 @@ import Head from 'next/head'
 import styles from '../../styles/videoLessons.module.scss'
 import Navbar from '../Navbar'
 import { useRouter } from 'next/router'
-import VideoChapter from '../VideoChapter'
+import VideoChapter from '../VideoLessonsPage/VideoChapter'
 
 export default function VideoLessonsPage(props: {content:any}) {
 
 
 	const { asPath } = useRouter()
 	console.log(asPath)
+  let editModeOn = true
 
 	return (
 	<div className={styles.container}>
@@ -27,7 +28,7 @@ export default function VideoLessonsPage(props: {content:any}) {
            let ls = []
            let i = 0
            for (const [title, content] of Object.entries(props.content["chapters"])) {
-             ls.push(<VideoChapter content={content} title={title} key={title}/>)
+             ls.push(<VideoChapter content={content} title={title} key={title} editModeOn={editModeOn}/>)
              i++
            }
            return ls
