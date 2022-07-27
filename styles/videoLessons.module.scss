@@ -138,12 +138,17 @@ $large: 1200px;
 }
 
 .video {
-	background-color: #CFC7FF;
+	transition-duration: 0.4s;
 	margin: 1em;
 	width: fit-content;
 	padding: 0.5em;
 	border-radius: 1em;
 	font-size: 1.2em;
+}
+
+.video:hover {
+	font-size: 1.3em;
+	filter:hue-rotate(20deg)
 }
 
 .videoItemContainer {
@@ -155,29 +160,37 @@ $large: 1200px;
 	display: flex;
 	justify-content: center;
 	align-content: center;
-	width: 2.5em;
-	height: 2.5em;
+	width: 2em;
+	height: 2em;
 	align-self: center;
 	margin: 0em 0.2em 0em;
 	// border-width: 0;
-	-webkit-box-shadow: 13px 12px 65px 0px rgba(0,0,0,0.06);
-	-moz-box-shadow: 13px 12px 65px 0px rgba(0,0,0,0.06);
-	box-shadow: 13px 12px 65px 0px rgba(0,0,0,0.06);
-	border-radius: 0.4em;
-	// border-style:none;
+	-webkit-box-shadow: 13px 12px 65px 4px rgba(0,0,0,0.06);
+	-moz-box-shadow: 13px 12px 65px 4px rgba(0,0,0,0.06);
+	box-shadow: 13px 12px 65px 4px rgba(0,0,0,0.06);
+	// border-radius: 0.4em;
+	border-style:none;
+	transition-duration: 0.4s;
+	opacity: 0.5;
 	// border: 0;
 }
 
+.videoButton:hover {
+	// background-color: #fefefe;
+	opacity: 1;
+	
+}
+
 .videoEditButton {
-	background-color: #85ff8b;
+	background-color: #94ec93;
 }
 
 .videoAddButton {
-	background-color: #8AB3FF
+	background-color: #97b9f7
 }
 
 .videoDeleteButton {
-	background-color: #ff7575;
+	background-color: #ff9f9f;
 }
 
 .moveButtonsContainer {
@@ -189,9 +202,107 @@ $large: 1200px;
 .moveUp, .moveDown{
 	width: 2.5em;
 	height: 1.5em;
+	margin: 0.1em 0em 0.1em;
 	background-color: #8ab3ff;
+	border-style:none;
+	transition-duration: 0.4s;
+	opacity: 0.5;
+}
+
+.moveUp:hover, .moveDown:hover {
+	opacity: 1;
 }
 
 // .arrowIcon {
 // 	stroke-width: 5em;
 // }
+
+.modalForm {
+	display: flex;
+	position: fixed;
+  z-index: 1; /* Sit on top */
+  // padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	align-content: center;
+	justify-content: center;
+}
+
+.formContent {
+	display: flex;
+	flex-direction: column;
+	// height: fit-content;
+	// width: fit-content;
+	min-width: 35em;
+	// min-height: 50vh;
+	justify-self: center;
+	align-self: center;
+	// align-items: center;
+	justify-content: center;
+  background-color: #fefefe;
+  // padding: 20px;
+	padding: 4em 4em 4em;
+  // border: 1px solid #8888;
+}
+
+.formLabel, .formField, .formSubmitButton {
+	display: flex;
+}
+
+.formLabel {
+	font-size: 1.2em;
+}
+
+.formField {
+	margin: 0.5em 0em 2em;
+	// min-height: 3em;
+	border-radius: 0.4em;
+	border: 1px solid #9da093;
+	font-size: medium;
+	padding: 0.5em;
+}
+
+.formField[type=text]:focus {
+  // border: 3px solid #3385FF;
+	outline: none;
+}
+
+.formSubmitButton, .formCancelButton {
+	flex-grow: 1;
+	margin: 1em 1.5em 0em;
+	height: 3em;
+}
+
+.formSubmitButton {
+	// margin-top: 1em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fefefe;
+	background-color: #3385FF;
+	border-radius: 0.4em;
+	border: none;
+}
+
+.formCancelButton {
+	// margin-top: 1em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fefefe;
+	background-color: rgb(239, 74, 74);
+	border-radius: 0.4em;
+	border: none;
+}
+
+.formButtonRow {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	padding: 0 10% 0;
+}

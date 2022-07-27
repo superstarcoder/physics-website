@@ -137,11 +137,11 @@ export async function getStaticPaths() {
   for (var path in allData) {
     var splitPath=path.toString().split("/");
     splitPath = splitPath.filter(Boolean)
-    console.log(splitPath)
+    // console.log(splitPath)
     paths.push({params: {dynamicPath: splitPath}})
   }
 
-  console.log(paths)
+  // console.log(paths)
 
 
   // We'll pre-render only these paths at build time.
@@ -154,14 +154,17 @@ export async function getStaticPaths() {
 {/* @ts-ignore  */}
 const apPhysics: NextPage = ({allData}) => {
   const { asPath } = useRouter()
-    console.log({asPath})
-    console.log(allData[asPath])
+  // console.log({asPath, basePath})
 
-  if (allData[asPath]["type"] == "cardsPage") {
-    return (<CardsPage content={allData[asPath]} />)
+  var relPath = asPath.split(/[?#]/)[0]
+  console.log(allData[relPath])
+  // console.log("location:", relPath)
+
+  if (allData[relPath]["type"] == "cardsPage") {
+    return (<CardsPage content={allData[relPath]} />)
   }
-  else if (allData[asPath]["type"] == "videoLessonsPage") {
-    return (<VideoLessonsPage content={allData[asPath]} />)
+  else if (allData[relPath]["type"] == "videoLessonsPage") {
+    return (<VideoLessonsPage content={allData[relPath]} />)
   }
 }
 

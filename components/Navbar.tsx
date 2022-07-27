@@ -2,18 +2,9 @@ import React, { useEffect } from 'react';
 import styles from '../styles/components/Navbar.module.scss'
 import $ from 'jquery';
 import NavContent from './NavContent';
+import { toggleId } from './Helper';
 
-function toggleId(className:string, id:string)
-{
-	$(`[class='${className}']`).children("div").toggle();
-	var tags = document.getElementsByClassName(className)
-	var tag
-	for (var i = 0; i < tags.length; i++) {
-		tag = tags[i]
-		if (tag != null)
-			tag.id = tag.getAttribute("id") ? '' : id
-	}
-}
+
 
 var fileStructure = {
 	"AP Physics C" : {
@@ -34,7 +25,14 @@ var fileStructure = {
 			 },
 			 "Another thing" : {
 				link: "/aaa",
-				children: {}
+				children: {
+					"Chapter 2, 3, 4" : {
+						link: "/chapters-2-3-4",
+					},
+					"Chapter 4, 5, 6" : {
+						link: "/chapters-2-3-4",
+					}
+				}
 			 },
 		}
 	},

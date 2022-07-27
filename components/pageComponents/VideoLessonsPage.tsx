@@ -10,7 +10,7 @@ export default function VideoLessonsPage(props: {content:any}) {
 
 
 	const { asPath } = useRouter()
-	console.log(asPath)
+	// console.log(asPath)
   let editModeOn = true
 
 	return (

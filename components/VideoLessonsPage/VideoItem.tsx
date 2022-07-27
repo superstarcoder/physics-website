@@ -2,6 +2,7 @@ import React from 'react'
 import styles from '../../styles/videoLessons.module.scss'
 import { AiOutlineArrowUp, AiOutlineArrowDown, AiOutlineDelete, AiOutlineEdit, AiOutlinePlus} from "react-icons/ai";
 import { IconContext } from "react-icons";
+import VideoEditButton from './VideoItemEditButton';
 
 
 export default function VideoItem(props: { content:any, title: string, color:string, editModeOn: boolean}) {
@@ -27,8 +28,9 @@ export default function VideoItem(props: { content:any, title: string, color:str
 					</IconContext.Provider>
 				</div>
 				<div className={styles.video} style={{backgroundColor: props.color}}><a href={props.content["link"]} target="_blank">{props.title}</a></div>
-				<IconContext.Provider value={{ color: "black", className: "arrowIcon", size:"2em"}}>
-					<button className={[styles.videoButton, styles.videoEditButton].join(" ")}><AiOutlineEdit/></button>
+				<IconContext.Provider value={{ color: "black", className: "arrowIcon", size:"1.7em"}}>
+					<VideoEditButton Icon={AiOutlineEdit}/>
+					{/* <VideoEditButton Icon={AiOutlineEdit}/> */}
 					<button className={[styles.videoButton, styles.videoDeleteButton].join(" ")}><AiOutlineDelete/></button>
 					<button className={[styles.videoButton, styles.videoAddButton].join(" ")}><AiOutlinePlus/></button>
 				</IconContext.Provider>

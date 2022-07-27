@@ -23,7 +23,7 @@ export default function NavContent(props: {content: Object, path:string, positio
 				var link = props.path
 				if (value.hasOwnProperty("link")) {
 					link += value["link"]
-					console.log(link)
+					// console.log(link)
 				}
 
 				// id={key+"TitleArrow"}
