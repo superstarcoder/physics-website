@@ -8,6 +8,8 @@ $large: 1200px;
 	flex-direction: row;
 }
 
+
+
 // .cards {
 //     display: flex;
 //     flex-direction: row;
@@ -126,15 +128,26 @@ $large: 1200px;
 	background-color: #B2E8FF;
 	width: fit-content;
 	padding: 0.5em 1.2em 0.5em;
-	margin: 0;
+	margin: 0em 0.5em 0em 0em;
+}
+
+.chapterHeadingContainer {
+	display: flex;
+	flex-direction: row;
 }
 
 .subChapterTitle {
 	font-size: 1.4em;
+	margin: 1em 0em 0.5em;
+	margin-right: 1em;
+}
+
+.subChapterTitleContainer {
+	display: flex;
 }
 
 .subChapter {
-	padding: 0.5em 2em 0em;
+	padding: 0em 2em 0em;
 }
 
 .video {
@@ -202,7 +215,7 @@ $large: 1200px;
 .moveUp, .moveDown{
 	width: 2.5em;
 	height: 1.5em;
-	margin: 0.1em 0em 0.1em;
+	margin: 0.1em 1em 0.1em 1em; // top right bottom left
 	background-color: #8ab3ff;
 	border-style:none;
 	transition-duration: 0.4s;
@@ -246,7 +259,7 @@ $large: 1200px;
 	justify-content: center;
   background-color: #fefefe;
   // padding: 20px;
-	padding: 4em 4em 4em;
+	padding: 3.5em 4em 3.5em;
   // border: 1px solid #8888;
 }
 
@@ -256,6 +269,13 @@ $large: 1200px;
 
 .formLabel {
 	font-size: 1.2em;
+}
+
+.formTitle {
+	font-size: 1.5em;
+	align-self: center;
+	margin: 0;
+
 }
 
 .formField {
