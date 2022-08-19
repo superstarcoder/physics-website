@@ -3,6 +3,7 @@ import type { NextPage } from 'next'
 import CardsPage from '../components/pageComponents/CardsPage'
 import VideoLessonsPage from '../components/pageComponents/VideoLessonsPage'
 import { useRouter } from 'next/router'
+import { PageType, prisma, PrismaClient } from '@prisma/client'
 
 
 var allData = {
@@ -99,23 +100,24 @@ var allData = {
   }
 }
 
+// when to use static vs server side generation
+// https://stackoverflow.com/questions/70873633/when-to-use-getstaticprops-and-getserverside-props-in-real-world-scenario
+
 // This function gets called at build time
-export async function getStaticProps() {
-//   var cardsPageContent = {
-    
-// }
+export async function getStaticProps(context) {
+  // const page = await.
 
-// const paths = {
-//   params: {
-//     id: "apPhysics"
-//   }
-// }
-  // // Call an external API endpoint to get posts
-  // const res = await fetch('https://.../posts')
-  // const posts = await res.json()
+  const prisma = new PrismaClient()
+  var relPath = "/"+context.params.dynamicPath
 
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
+  const page = await prisma.page.findUnique({
+    where : {
+      path: relPath,
+    },
+  })
+  
+  console.log(page)
+
   return {
     props: {
       allData,
@@ -124,6 +126,18 @@ export async function getStaticProps() {
 }
 
 export async function getStaticPaths() {
+  const prisma = new PrismaClient()
+
+  await prisma.page.deleteMany()
+  await prisma.page.create({
+    data: {
+      path: "/apPhysics",
+      titleName: "AP PHYSICS C",
+      titleSize: "4.5em",
+      pageType: "cardsPage"
+    }
+  })
+
   // Call an external API endpoint to get posts
   // const res = await fetch('https://.../posts')
   // const posts = await res.json()
@@ -137,23 +151,18 @@ export async function getStaticPaths() {
   for (var path in allData) {
     var splitPath=path.toString().split("/");
     splitPath = splitPath.filter(Boolean)
-    // console.log(splitPath)
     paths.push({params: {dynamicPath: splitPath}})
   }
 
-  // console.log(paths)
 
-
-  // We'll pre-render only these paths at build time.
-  // { fallback: false } means other routes should 404.
-  // return { paths: [{params: {id: "ap-physics/cool"}}], fallback: false }
-  // return { paths: [{params: {cardsPagePath: ["apPhysics", "hii"]}}, {params: {cardsPagePath: ["hello"]}}], fallback: false }
   return {paths: paths, fallback: false}
 }
 
 {/* @ts-ignore  */}
 const apPhysics: NextPage = ({allData}) => {
+
   const { asPath } = useRouter()
+
   // console.log({asPath, basePath})
 
   var relPath = asPath.split(/[?#]/)[0]

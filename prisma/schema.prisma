@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Page {
+  id        String     @id @default(uuid())
+  path      String     @unique
+  titleName String
+  titleSize String
+  pageType  PageType
+  cards     Card[]
+  miniCards MiniCard[]
+  chapters  Chapter[]
+}
+
+model Card {
+  id        String @id @default(uuid())
+  title     String
+  relPath   String
+  imagePath String
+  Page      Page   @relation(fields: [pageId], references: [id])
+  pageId    String
+
+  // relPath must be unique for cards in the same page
+  // iow: it is illegal for both relPath and pageId to be the same for multiple cards
+  @@unique([pageId, relPath], name: "cardIdentifier")
+}
+
+model MiniCard {
+  id      String @id @default(uuid())
+  title   String
+  relPath String
+  Page    Page   @relation(fields: [pageId], references: [id])
+  pageId  String
+
+  // relPath must be unique for mini cards in the same page
+  // iow: it is illegal for both relPath and pageId to be the same for multiple mini cards
+  @@unique([pageId, relPath], name: "miniCardIdentifier")
+}
+
+model Chapter {
+  id          String       @id @default(uuid())
+  title       String
+  Page        Page         @relation(fields: [pageId], references: [id])
+  pageId      String
+  subChapters SubChapter[]
+}
+
+model SubChapter {
+  id         String      @id @default(uuid())
+  title      String
+  Chapter    Chapter     @relation(fields: [chapterId], references: [id])
+  chapterId  String
+  videoItems VideoItem[]
+}
+
+model VideoItem {
+  id           String     @id @default(uuid())
+  title        String
+  link         String
+  SubChapter   SubChapter @relation(fields: [subChapterId], references: [id])
+  subChapterId String
+}
+
+enum PageType {
+  cardsPage
+  videoLessonsPage
+}
