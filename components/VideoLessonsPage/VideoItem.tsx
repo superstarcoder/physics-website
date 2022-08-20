@@ -8,10 +8,10 @@ import { IconContext } from "react-icons";
 import { VideoItemAddButton, VideoItemEditButton, VideoItemDeleteButton, VideoItemMoveUpButton, VideoItemMoveDownButton } from './VideoItemButtons';
 
 
-export default function VideoItem(props: { content:any, title: string, color:string, editModeOn: boolean}) {
+export default function VideoItem(props: { myData:any, title: string, color:string, editModeOn: boolean}) {
 	if (!props.editModeOn) {
 		return (
-			<div className={styles.video} style={{backgroundColor: props.color}}><a href={props.content["link"]} target="_blank">{props.title}</a></div>
+			<div className={styles.video} style={{backgroundColor: props.color}}><a href={props.myData.link} target="_blank">{props.title}</a></div>
 		)
 	}
 	else {
@@ -23,7 +23,7 @@ export default function VideoItem(props: { content:any, title: string, color:str
 						<VideoItemMoveDownButton Icon={AiOutlineArrowDown} />
 					</IconContext.Provider>
 				</div>
-				<div className={styles.video} style={{backgroundColor: props.color}}><a href={props.content["link"]} target="_blank">{props.title}</a></div>
+				<div className={styles.video} style={{backgroundColor: props.color}}><a href={props.myData.link} target="_blank">{props.title}</a></div>
 				<IconContext.Provider value={{ color: "black", className: "arrowIcon", size:"1.7em"}}>
 					<VideoItemEditButton Icon={AiOutlineEdit}/>
 					<VideoItemDeleteButton Icon={AiOutlineDelete} />

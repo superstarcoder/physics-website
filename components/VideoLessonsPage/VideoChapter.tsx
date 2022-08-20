@@ -5,7 +5,7 @@ import { IconContext } from "react-icons";
 import {VideoChapterAddButton, VideoChapterDeleteButton, VideoChapterEditButton, VideoChapterMoveDownButton, VideoChapterMoveUpButton} from './VideoChapterButtons'
 import { AiOutlineArrowUp, AiOutlineArrowDown, AiOutlineDelete, AiOutlineEdit, AiOutlinePlus} from "react-icons/ai";
 
-export default function VideoChapter(props: {content:any, title:string, editModeOn:boolean}) {
+export default function VideoChapter(props: {myData:any, title:string, editModeOn:boolean}) {
   return (
     <>
       <div className={styles.chapter}>
@@ -34,8 +34,9 @@ export default function VideoChapter(props: {content:any, title:string, editMode
         {(() => {
           let ls = []
           let i = 0
-          for (const [title, content] of Object.entries(props.content)) {
-            ls.push(<VideoSubChapter content={content} title={title} color={`hsl(200, 100%, ${90 - i*2}%)`} key={title} editModeOn={props.editModeOn}/>)
+          // for (const [title, content] of Object.entries(props.content)) {
+          for (const subChapter of props.myData.subChapters) {
+            ls.push(<VideoSubChapter myData={subChapter} title={subChapter.title} color={`hsl(200, 100%, ${90 - i*2}%)`} key={subChapter.id} editModeOn={props.editModeOn}/>)
             i++
           }
           return ls

@@ -6,7 +6,7 @@ import Navbar from '../Navbar'
 import { useRouter } from 'next/router'
 import VideoChapter from '../VideoLessonsPage/VideoChapter'
 
-export default function VideoLessonsPage(props: {content:any}) {
+export default function VideoLessonsPage(props: {myData:any}) {
 
 
 	const { asPath } = useRouter()
@@ -27,8 +27,9 @@ export default function VideoLessonsPage(props: {content:any}) {
         {(() => {
            let ls = []
            let i = 0
-           for (const [title, content] of Object.entries(props.content["chapters"])) {
-             ls.push(<VideoChapter content={content} title={title} key={title} editModeOn={editModeOn}/>)
+           // for (const [title, content] of Object.entries(props.content["chapters"])) {
+          for (const chapter of props.myData.chapters) {
+             ls.push(<VideoChapter myData={chapter} title={chapter.title} key={chapter.id} editModeOn={editModeOn}/>)
              i++
            }
            return ls

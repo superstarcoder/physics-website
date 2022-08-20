@@ -8,7 +8,7 @@ import Navbar from '../Navbar'
 import { useRouter } from 'next/router'
 
 // @ts-ignore
-export default function CardsPage(props: {content:any}) {
+export default function CardsPage(props: {myData:any}) {
 	const { asPath } = useRouter()
 
 	let green = 'rgba(200, 255, 205, 1)'
@@ -30,11 +30,11 @@ export default function CardsPage(props: {content:any}) {
 			{/* <div className={styles.background}></div> */}
 			{/* @ts-ignore  */}
 			{(() => {
-			if (props.content["title"]["name"] == "AP PHYSICS C") {
-				return (<h1 style={{fontSize: props.content["title"]["font-size"]}}><a>AP</a> PHYSICS <a>C</a></h1>)
+			if (props.myData.titleName == "AP PHYSICS C") {
+				return (<h1 style={{fontSize: props.myData.titleSize}}><a>AP</a> PHYSICS <a>C</a></h1>)
 			}
 			else {
-				return (<h1 style={{fontSize: props.content["title"]["font-size"]}}>{props.content["title"]["name"]}</h1>)
+				return (<h1 style={{fontSize: props.myData.titleSize}}>{props.myData.titleName}</h1>)
 			}
 			})()}
 			{/* <h1 style={{fontSize: cardsPageContent["title"]["font-size"]}}><a>AP</a> PHYSICS <a>C</a></h1> */}
@@ -45,11 +45,12 @@ export default function CardsPage(props: {content:any}) {
 			{(() => {
 				let ls = []
 				// loop thorugh all the cards
-				for (const [key, value] of Object.entries(props.content["cards"])) {
-				ls.push(
-					// @ts-ignore
-					<Card fileName={value["image_path"]} color={green} cardTitle={key} linkTo={asPath+value["link"]} key={key}/>
-				)
+				// for (var card in props.myData.cards) {
+				for (const card of props.myData.cards) {
+					ls.push(
+						// @ts-ignore
+						<Card fileName={card.imagePath} color={green} cardTitle={card.title} linkTo={asPath+card.relPath} key={card.id}/>
+					)
 				}
 				return ls;
 			})()}
@@ -59,7 +60,7 @@ export default function CardsPage(props: {content:any}) {
 			
 			{(() => {
 				let ls = []
-				let miniCardsLen:number = Object.keys(props.content["mini cards"]).length
+				let miniCardsLen:number = props.myData.miniCards.length 
 				let cardsPerRow:number = 3
 				let rows:number = (Math.floor((miniCardsLen-1)/cardsPerRow))+1 // calculate number of rows
 				let cardIndex = 0
@@ -76,12 +77,13 @@ export default function CardsPage(props: {content:any}) {
 
 							// get key and value using card index
 
-							let key = Object.keys(props.content["mini cards"])[cardIndex]
-							// @ts-ignore
-							let value = props.content["mini cards"][key]
+							// let key = Object.keys(props.content["mini cards"])[cardIndex]
+							// // @ts-ignore
+							// let value = props.content["mini cards"][key]
 
+							var miniCard = props.myData.miniCards[i]
 							ls2.push(
-							<MiniCard color={miniCardColors[Math.floor(cardIndex / cardsPerRow)]} cardTitle={key} linkTo={asPath+value["link"]} key={key}/>
+							<MiniCard color={miniCardColors[Math.floor(cardIndex / cardsPerRow)]} cardTitle={miniCard.title} linkTo={asPath+miniCard.relPath} key={miniCard.id}/>
 							)
 
 							cardIndex++;

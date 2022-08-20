@@ -26,7 +26,7 @@ model Card {
   title     String
   relPath   String
   imagePath String
-  Page      Page   @relation(fields: [pageId], references: [id])
+  page      Page   @relation(fields: [pageId], references: [id])
   pageId    String
 
   // relPath must be unique for cards in the same page
@@ -38,7 +38,7 @@ model MiniCard {
   id      String @id @default(uuid())
   title   String
   relPath String
-  Page    Page   @relation(fields: [pageId], references: [id])
+  page    Page   @relation(fields: [pageId], references: [id])
   pageId  String
 
   // relPath must be unique for mini cards in the same page
@@ -49,7 +49,7 @@ model MiniCard {
 model Chapter {
   id          String       @id @default(uuid())
   title       String
-  Page        Page         @relation(fields: [pageId], references: [id])
+  page        Page         @relation(fields: [pageId], references: [id])
   pageId      String
   subChapters SubChapter[]
 }
@@ -57,7 +57,7 @@ model Chapter {
 model SubChapter {
   id         String      @id @default(uuid())
   title      String
-  Chapter    Chapter     @relation(fields: [chapterId], references: [id])
+  chapter    Chapter     @relation(fields: [chapterId], references: [id])
   chapterId  String
   videoItems VideoItem[]
 }
@@ -66,7 +66,7 @@ model VideoItem {
   id           String     @id @default(uuid())
   title        String
   link         String
-  SubChapter   SubChapter @relation(fields: [subChapterId], references: [id])
+  subChapter   SubChapter @relation(fields: [subChapterId], references: [id])
   subChapterId String
 }
 

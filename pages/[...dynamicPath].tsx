@@ -108,19 +108,37 @@ export async function getStaticProps(context) {
   // const page = await.
 
   const prisma = new PrismaClient()
-  var relPath = "/"+context.params.dynamicPath
+  // console.log(typeof(context.params.dynamicPath))
+  var relPath = ""
+  for (var pathStr of context.params.dynamicPath) {
+    relPath += "/" + pathStr
+  }
+  console.log(relPath)
 
-  const page = await prisma.page.findUnique({
+  const pageData = await prisma.page.findUnique({
     where : {
       path: relPath,
     },
+    include: {
+      cards: true,
+      miniCards: true,
+      chapters: {
+        include: {
+          subChapters: {
+            include: {
+              videoItems: true
+            }
+          }
+        }
+      } 
+    }
   })
   
-  console.log(page)
+  // console.log(page)
 
   return {
     props: {
-      allData,
+      allData, pageData
     },
   }
 }
@@ -128,15 +146,110 @@ export async function getStaticProps(context) {
 export async function getStaticPaths() {
   const prisma = new PrismaClient()
 
+  await prisma.videoItem.deleteMany()
+  await prisma.subChapter.deleteMany()
+  await prisma.chapter.deleteMany()
+  await prisma.miniCard.deleteMany()
+  await prisma.card.deleteMany()
   await prisma.page.deleteMany()
+
+
+
+
   await prisma.page.create({
     data: {
       path: "/apPhysics",
       titleName: "AP PHYSICS C",
       titleSize: "4.5em",
-      pageType: "cardsPage"
+      pageType: "cardsPage",
+      cards: {
+        create: [
+          {
+            relPath: "/video-lessons",
+            title: "Video Lessons",
+            imagePath: "/apPhysics/video-lessons.jpg",
+          },
+          {
+            relPath: "/homework-solutions",
+            title: "Homework Solutions",
+            imagePath: "/apPhysics/hw-solutions.jpg",
+          },
+          {
+            relPath: "/physics-honors",
+            title: "Notes, Presentations, Supplemental Vidoes",
+            imagePath: "/apPhysics/others.jpg",
+          },
+        ]
+      },
+      miniCards: {
+        create: [
+          {
+            title: "AP Exam Preparation",
+            relPath: "/physics-honors"
+          },
+          {
+            title: "Text Book Information",
+            relPath: "/physics-honors2"
+          },
+          {
+            title: "Green Sheet",
+            relPath: "/physics-honors3"
+          },
+          {
+            title: "Lynbrook's Academic Honesty Policy",
+            relPath: "/physics-honors4"
+          },
+          {
+            title: "Labs",
+            relPath: "/physics-honors5"
+          },
+          {
+            title: "Green Stuff",
+            relPath: "/physics-honors6"
+          },
+        ]
+      },
+    },
+    include: {
+      cards: true,
+      miniCards: true,
     }
   })
+
+  await prisma.page.create({
+    data: {
+      path: "/apPhysics/video-lessons",
+      titleName: "Video Lessons",
+      titleSize: "3em",
+      pageType: "videoLessonsPage",
+      chapters: {
+        create : [
+          {
+            title: "Chapter 2",
+            subChapters: {
+              create: [
+                {
+                  title: "2.3-2.5",
+                  videoItems: {
+                    create: [
+                      {
+                        title: "Position and Displacement, Average Velocity and Average Speed",
+                        link: "https://www.youtube.com/watch?v=4Tm6Z1y3h94"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    include: {
+      chapters: true,
+    }
+  })
+
 
   // Call an external API endpoint to get posts
   // const res = await fetch('https://.../posts')
@@ -159,21 +272,27 @@ export async function getStaticPaths() {
 }
 
 {/* @ts-ignore  */}
-const apPhysics: NextPage = ({allData}) => {
+const apPhysics: NextPage = ({allData, pageData}) => {
 
   const { asPath } = useRouter()
 
   // console.log({asPath, basePath})
 
   var relPath = asPath.split(/[?#]/)[0]
-  console.log(allData[relPath])
+  // console.log(pageData)
+  // console.log(pageData.titleName)
+  // console.log(allData[relPath])
   // console.log("location:", relPath)
+  // console.log(pageData)
+  // console.log(typeof(pageData))
+  console.dir(pageData,{depth:null})
+
 
   if (allData[relPath]["type"] == "cardsPage") {
-    return (<CardsPage content={allData[relPath]} />)
+    return (<CardsPage myData={pageData} />)
   }
   else if (allData[relPath]["type"] == "videoLessonsPage") {
-    return (<VideoLessonsPage content={allData[relPath]} />)
+    return (<VideoLessonsPage myData={pageData} />)
   }
 }
 
