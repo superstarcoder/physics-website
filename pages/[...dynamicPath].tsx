@@ -143,8 +143,7 @@ export async function getStaticProps(context) {
   }
 }
 
-export async function getStaticPaths() {
-  const prisma = new PrismaClient()
+async function resetData(prisma) {
 
   await prisma.videoItem.deleteMany()
   await prisma.subChapter.deleteMany()
@@ -250,6 +249,10 @@ export async function getStaticPaths() {
     }
   })
 
+}
+
+export async function getStaticPaths() {
+  const prisma = new PrismaClient()
 
   // Call an external API endpoint to get posts
   // const res = await fetch('https://.../posts')

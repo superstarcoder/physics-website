@@ -1,7 +1,8 @@
 import React from 'react'
 import styles from '../../styles/videoLessons.module.scss'
 import { useState } from 'react'
-
+import {useForm} from "react-hook-form"
+import Router from "next/router";
 
 export function VideoItemMoveUpButton(props: {Icon: any}) {
 	return (
@@ -19,19 +20,20 @@ export function VideoItemMoveDownButton(props: {Icon: any}) {
 	)
 }
 
-export function VideoItemEditButton(props: {Icon: any}) {
+export function VideoItemEditButton(props: {Icon: any, myData:any}) {
 	const [modalOpen, onChange] = useState(false);
+	const [formData, setFormData] = useState({subChapterId: props.myData.subChapterId, id: props.myData.id, title: props.myData.title, link: props.myData.link,})
 
-	function modalToggle() {
-		onChange(!modalOpen)
-		if (modalOpen) {
-			document.body.style.overflow = "visible"
-		}
-		else {
-			document.body.style.overflow = "hidden"
-		}
-		console.log(modalOpen)
+	async function callAPI(e: any) {
+		e.preventDefault()
+		// setFormData({...formData, title: e.target.title.value, link:e.target.link.value})
+		console.log("FORM DATA",formData)
+		const response = await fetch("/api/videoItem/edit", {method: "POST",body: JSON.stringify(formData)})
+		Router.reload();
+		return await response.json()
 	}
+
+	function modalToggle() { onChange(!modalOpen); if (modalOpen) {document.body.style.overflow = "visible"} else {document.body.style.overflow = "hidden"}}
 
 	return (
 		<>
@@ -39,15 +41,13 @@ export function VideoItemEditButton(props: {Icon: any}) {
 			{
 				modalOpen ? (
 					<div className={styles.modalForm}>
-						{/* <div > */}
-						{/* <form action="/api/form" method="post"> */}
-						<form className={styles.formContent} onSubmit={() => {console.log("hii")}}>
+						<form className={styles.formContent} onSubmit={callAPI}>
 							<p className={styles.formTitle}>Edit Video Item</p>
-							<label className={styles.formLabel} htmlFor="first">Title</label>
-							<input className={styles.formField} type="text" id="first" name="first" required />
+							<label className={styles.formLabel} htmlFor="title">Title</label>
+							<input className={styles.formField} type="text" id="title" title="title" defaultValue={props.myData.title} onChange={e => setFormData({...formData, title: e.target.value})} required />
 
-							<label className={styles.formLabel} htmlFor="last">Link</label>
-							<input className={styles.formField} type="text" id="last" name="last" required />
+							<label className={styles.formLabel} htmlFor="link">Link</label>
+							<input className={styles.formField} type="text" id="link" name="link" defaultValue={props.myData.link} onChange={e => setFormData({...formData, link: e.target.value})} required />
 
 							<div className={styles.formButtonRow}>
 								<button className={styles.formSubmitButton} type="submit">Submit</button>
@@ -64,18 +64,17 @@ export function VideoItemEditButton(props: {Icon: any}) {
 
 
 
-export function VideoItemDeleteButton(props: {Icon: any}) {
+export function VideoItemDeleteButton(props: {Icon: any, myData:any}) {
 	const [modalOpen, onChange] = useState(false);
+	function modalToggle() { onChange(!modalOpen); if (modalOpen) {document.body.style.overflow = "visible"} else {document.body.style.overflow = "hidden"}}
+	const [formData, setFormData] = useState({id: props.myData.id})
 
-	function modalToggle() {
-		onChange(!modalOpen)
-		if (modalOpen) {
-			document.body.style.overflow = "visible"
-		}
-		else {
-			document.body.style.overflow = "hidden"
-		}
-		console.log(modalOpen)
+	async function callAPI(e: { preventDefault: () => void }) {
+		e.preventDefault()
+		console.log("FORM DATA",formData)
+		const response = await fetch("/api/videoItem/delete", { method: "POST", body: JSON.stringify(formData)})
+		Router.reload();
+		return await response.json()
 	}
 
 	return (
@@ -86,7 +85,7 @@ export function VideoItemDeleteButton(props: {Icon: any}) {
 					<div className={styles.modalForm}>
 						{/* <div > */}
 						{/* <form action="/api/form" method="post"> */}
-						<form className={styles.formContent} onSubmit={() => {console.log("hii")}}>
+						<form className={styles.formContent} onSubmit={callAPI}>
 							<p className={styles.formTitle}>Are you sure you want to delete?</p>
 
 							<div className={styles.formButtonRow}>
@@ -102,19 +101,19 @@ export function VideoItemDeleteButton(props: {Icon: any}) {
 	)
 }
 
-export function VideoItemAddButton(props: {Icon: any}) {
+export function VideoItemAddButton(props: {Icon: any, myData: any}) {
 	const [modalOpen, onChange] = useState(false);
+	const [formData, setFormData] = useState({subChapterId: props.myData.subChapterId, title: "", link: ""})
 
-	function modalToggle() {
-		onChange(!modalOpen)
-		if (modalOpen) {
-			document.body.style.overflow = "visible"
-		}
-		else {
-			document.body.style.overflow = "hidden"
-		}
-		console.log(modalOpen)
+	async function callAPI(e: { preventDefault: () => void }) {
+		e.preventDefault()
+		console.log("FORM DATA",formData)
+		const response = await fetch("/api/videoItem/add", {method: "POST",body: JSON.stringify(formData)})
+		Router.reload();
+		return await response.json()
 	}
+
+	function modalToggle() { onChange(!modalOpen); if (modalOpen) {document.body.style.overflow = "visible"} else {document.body.style.overflow = "hidden"}}
 
 	return (
 		<>
@@ -122,15 +121,14 @@ export function VideoItemAddButton(props: {Icon: any}) {
 			{
 				modalOpen ? (
 					<div className={styles.modalForm}>
-						{/* <div > */}
-						{/* <form action="/api/form" method="post"> */}
-						<form className={styles.formContent} onSubmit={() => {console.log("hii")}}>
+						<form className={styles.formContent} onSubmit={callAPI}
+						>
 							<p className={styles.formTitle}>Add Video Item</p>
-							<label className={styles.formLabel} htmlFor="first">Title</label>
-							<input className={styles.formField} type="text" id="first" name="first" required />
+							<label className={styles.formLabel} htmlFor="title">Title</label>
+							<input className={styles.formField} type="text" id="title" name="title" onChange={e => setFormData({...formData, title: e.target.value})} required />
 
-							<label className={styles.formLabel} htmlFor="last">Link</label>
-							<input className={styles.formField} type="text" id="last" name="last" required />
+							<label className={styles.formLabel} htmlFor="link">Link</label>
+							<input className={styles.formField} type="text" id="link" name="link"  onChange={e => setFormData({...formData, link: e.target.value})} required />
 
 							<div className={styles.formButtonRow}>
 								<button className={styles.formSubmitButton} type="submit">Submit</button>
@@ -138,7 +136,6 @@ export function VideoItemAddButton(props: {Icon: any}) {
 							</div>
 						</form>
 						</div>
-					// </div>
 				) : (<></>)
 			}
 		</>

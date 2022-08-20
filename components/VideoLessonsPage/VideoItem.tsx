@@ -25,9 +25,9 @@ export default function VideoItem(props: { myData:any, title: string, color:stri
 				</div>
 				<div className={styles.video} style={{backgroundColor: props.color}}><a href={props.myData.link} target="_blank">{props.title}</a></div>
 				<IconContext.Provider value={{ color: "black", className: "arrowIcon", size:"1.7em"}}>
-					<VideoItemEditButton Icon={AiOutlineEdit}/>
-					<VideoItemDeleteButton Icon={AiOutlineDelete} />
-					<VideoItemAddButton Icon={AiOutlinePlus} />
+					<VideoItemEditButton Icon={AiOutlineEdit} myData={props.myData}/>
+					<VideoItemDeleteButton Icon={AiOutlineDelete} myData={props.myData} />
+					<VideoItemAddButton Icon={AiOutlinePlus} myData={props.myData} />
 				</IconContext.Provider>
 			</div>
 		)
