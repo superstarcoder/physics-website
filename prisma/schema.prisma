@@ -28,6 +28,7 @@ model Card {
   imagePath String
   page      Page   @relation(fields: [pageId], references: [id])
   pageId    String
+  orderNum  Int    @default(autoincrement())
 
   // relPath must be unique for cards in the same page
   // iow: it is illegal for both relPath and pageId to be the same for multiple cards
@@ -35,11 +36,12 @@ model Card {
 }
 
 model MiniCard {
-  id      String @id @default(uuid())
-  title   String
-  relPath String
-  page    Page   @relation(fields: [pageId], references: [id])
-  pageId  String
+  id       String @id @default(uuid())
+  title    String
+  relPath  String
+  page     Page   @relation(fields: [pageId], references: [id])
+  pageId   String
+  orderNum Int    @default(autoincrement())
 
   // relPath must be unique for mini cards in the same page
   // iow: it is illegal for both relPath and pageId to be the same for multiple mini cards
@@ -52,6 +54,7 @@ model Chapter {
   page        Page         @relation(fields: [pageId], references: [id])
   pageId      String
   subChapters SubChapter[]
+  orderNum    Int          @default(autoincrement())
 }
 
 model SubChapter {
@@ -60,6 +63,7 @@ model SubChapter {
   chapter    Chapter     @relation(fields: [chapterId], references: [id])
   chapterId  String
   videoItems VideoItem[]
+  orderNum   Int         @default(autoincrement())
 }
 
 model VideoItem {
@@ -68,6 +72,7 @@ model VideoItem {
   link         String
   subChapter   SubChapter @relation(fields: [subChapterId], references: [id])
   subChapterId String
+  orderNum     Int        @unique @default(autoincrement())
 }
 
 enum PageType {

@@ -120,13 +120,21 @@ export async function getStaticProps(context) {
       path: relPath,
     },
     include: {
-      cards: true,
+      cards: {
+        orderBy: {
+          orderNum: "asc"
+        }
+      },
       miniCards: true,
       chapters: {
         include: {
           subChapters: {
             include: {
-              videoItems: true
+              videoItems: {
+                orderBy: {
+                  orderNum: "asc"
+                }
+              }
             }
           }
         }

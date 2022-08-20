@@ -23,17 +23,8 @@ export function VideoSubChapterMoveDownButton(props: {Icon: any}) {
 export function VideoSubChapterEditButton(props: {Icon: any}) {
 	const [modalOpen, onChange] = useState(false);
 
-	function modalToggle() {
-		onChange(!modalOpen)
-		if (modalOpen) {
-			document.body.style.overflow = "visible"
-		}
-		else {
-			document.body.style.overflow = "hidden"
-		}
-		console.log(modalOpen)
-	}
-
+	function modalToggle() { onChange(!modalOpen); if (modalOpen) {document.body.style.overflow = "visible"} else {document.body.style.overflow = "hidden"}}
+	
 	return (
 		<>
 			<button className={[styles.videoButton, styles.videoEditButton].join(" ")} onClick={modalToggle}><props.Icon/></button>
@@ -68,17 +59,8 @@ export function VideoSubChapterEditButton(props: {Icon: any}) {
 export function VideoSubChapterDeleteButton(props: {Icon: any}) {
 	const [modalOpen, onChange] = useState(false);
 
-	function modalToggle() {
-		onChange(!modalOpen)
-		if (modalOpen) {
-			document.body.style.overflow = "visible"
-		}
-		else {
-			document.body.style.overflow = "hidden"
-		}
-		console.log(modalOpen)
-	}
 
+	function modalToggle() { onChange(!modalOpen); if (modalOpen) {document.body.style.overflow = "visible"} else {document.body.style.overflow = "hidden"}}
 	return (
 		<>
 			<button className={[styles.videoButton, styles.videoDeleteButton].join(" ")} onClick={modalToggle}><props.Icon/></button>
@@ -106,16 +88,7 @@ export function VideoSubChapterDeleteButton(props: {Icon: any}) {
 export function VideoSubChapterAddButton(props: {Icon: any}) {
 	const [modalOpen, onChange] = useState(false);
 
-	function modalToggle() {
-		onChange(!modalOpen)
-		if (modalOpen) {
-			document.body.style.overflow = "visible"
-		}
-		else {
-			document.body.style.overflow = "hidden"
-		}
-		console.log(modalOpen)
-	}
+	function modalToggle() { onChange(!modalOpen); if (modalOpen) {document.body.style.overflow = "visible"} else {document.body.style.overflow = "hidden"}}
 
 	return (
 		<>

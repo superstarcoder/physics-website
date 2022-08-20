@@ -4,17 +4,40 @@ import { useState } from 'react'
 import {useForm} from "react-hook-form"
 import Router from "next/router";
 
-export function VideoItemMoveUpButton(props: {Icon: any}) {
+export function VideoItemMoveUpButton(props: {Icon: any, myData:any}) {
+
+	async function callAPI(e: any) {
+		e.preventDefault()
+		var formData = {
+			id: props.myData.id
+		}
+		const response = await fetch("/api/videoItem/moveUp", {method: "POST",body: JSON.stringify(formData)})
+		Router.reload();
+		return await response.json()
+	}
+
 	return (
-		<button className={styles.moveUp}>
+		<button className={styles.moveUp} onClick={callAPI}>
 			<props.Icon/>
 		</button>
 	)
 }
 
-export function VideoItemMoveDownButton(props: {Icon: any}) {
+export function VideoItemMoveDownButton(props: {Icon: any, myData:any}) {
+
+	async function callAPI(e: any) {
+		e.preventDefault()
+		var formData = {
+			id: props.myData.id
+		}
+		const response = await fetch("/api/videoItem/moveDown", {method: "POST",body: JSON.stringify(formData)})
+		Router.reload();
+		return await response.json()
+	}
+
+	
 	return (
-		<button className={styles.moveDown}>
+		<button className={styles.moveDown} onClick={callAPI}>
 			<props.Icon/>
 		</button>
 	)

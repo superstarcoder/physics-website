@@ -19,8 +19,8 @@ export default function VideoItem(props: { myData:any, title: string, color:stri
 			<div className={styles.videoItemContainer}>
 				<div className={styles.moveButtonsContainer}>
 					<IconContext.Provider value={{ color: "black", className: "arrowIcon", size:"1.1em"}}>
-						<VideoItemMoveUpButton Icon={AiOutlineArrowUp} />
-						<VideoItemMoveDownButton Icon={AiOutlineArrowDown} />
+						<VideoItemMoveUpButton Icon={AiOutlineArrowUp} myData={props.myData}/>
+						<VideoItemMoveDownButton Icon={AiOutlineArrowDown} myData={props.myData}/>
 					</IconContext.Provider>
 				</div>
 				<div className={styles.video} style={{backgroundColor: props.color}}><a href={props.myData.link} target="_blank">{props.title}</a></div>
