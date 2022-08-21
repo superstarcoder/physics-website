@@ -26,7 +26,7 @@ model Card {
   title     String
   relPath   String
   imagePath String
-  page      Page   @relation(fields: [pageId], references: [id])
+  page      Page   @relation(fields: [pageId], references: [id], onDelete: Cascade)
   pageId    String
   orderNum  Int    @unique @default(autoincrement())
 
@@ -39,7 +39,7 @@ model MiniCard {
   id       String @id @default(uuid())
   title    String
   relPath  String
-  page     Page   @relation(fields: [pageId], references: [id])
+  page     Page   @relation(fields: [pageId], references: [id], onDelete: Cascade)
   pageId   String
   orderNum Int    @unique @default(autoincrement())
 
@@ -51,7 +51,7 @@ model MiniCard {
 model Chapter {
   id          String       @id @default(uuid())
   title       String
-  page        Page         @relation(fields: [pageId], references: [id])
+  page        Page         @relation(fields: [pageId], references: [id], onDelete: Cascade)
   pageId      String
   subChapters SubChapter[]
   orderNum    Int          @unique @default(autoincrement())
@@ -60,7 +60,7 @@ model Chapter {
 model SubChapter {
   id         String      @id @default(uuid())
   title      String
-  chapter    Chapter     @relation(fields: [chapterId], references: [id])
+  chapter    Chapter     @relation(fields: [chapterId], references: [id], onDelete: Cascade)
   chapterId  String
   videoItems VideoItem[]
   orderNum   Int         @unique @default(autoincrement())
@@ -70,7 +70,7 @@ model VideoItem {
   id           String     @id @default(uuid())
   title        String
   link         String
-  subChapter   SubChapter @relation(fields: [subChapterId], references: [id])
+  subChapter   SubChapter @relation(fields: [subChapterId], references: [id], onDelete: Cascade)
   subChapterId String
   orderNum     Int        @unique @default(autoincrement())
 }
