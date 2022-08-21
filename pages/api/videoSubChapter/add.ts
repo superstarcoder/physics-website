@@ -16,6 +16,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 	// move everything down
 	await prisma.subChapter.updateMany({
 		where: {
+			chapterId: dataPassed.chapterId,
 			orderNum: {
 				gte: dataPassed.orderNum,
 			}

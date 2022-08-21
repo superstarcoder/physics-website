@@ -89,7 +89,7 @@ export function VideoSubChapterEditButton(props: {Icon: any, myData:any}) {
 
 export function VideoSubChapterDeleteButton(props: {Icon: any, myData: any}) {
 	const [modalOpen, onChange] = useState(false);
-	const [formData, setFormData] = useState({id: props.myData.id})
+	const [formData, setFormData] = useState({id: props.myData.id, chapterId: props.myData.chapterId})
 
 	async function callAPI(e: { preventDefault: () => void }) {
 		e.preventDefault()

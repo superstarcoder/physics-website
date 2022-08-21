@@ -12,27 +12,34 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 	const dataPassed = JSON.parse(req.body);
 	console.log(dataPassed)
 
-	const savedVideoItem = await prisma.subChapter.delete({
-		where: {
-			id: dataPassed.id
-		}
-	})
 
-	var orderNum = savedVideoItem.orderNum
-
-	await prisma.subChapter.updateMany({
+	// move everything down
+	await prisma.chapter.updateMany({
 		where: {
-			chapterId: dataPassed.chapterId,
+			pageId: dataPassed.pageId,
 			orderNum: {
-				gt: orderNum
+				gte: dataPassed.orderNum,
 			}
 		},
 		data : {
 			orderNum: {
-				decrement: 1
+				increment: 1
+			}
+		},
+	})
+
+	const savedVideoItem = await prisma.chapter.create({
+		data: {
+			title: dataPassed.title,
+			orderNum: dataPassed.orderNum,
+			id: dataPassed.id,
+			page : {
+				connect: {
+					id: dataPassed.pageId
+				}
 			}
 		}
 	})
 
-	res.json(savedVideoItem);
+	return res.json({"id": savedVideoItem.id});
 }

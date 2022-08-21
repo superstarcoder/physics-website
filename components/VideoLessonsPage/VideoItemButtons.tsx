@@ -90,7 +90,7 @@ export function VideoItemEditButton(props: {Icon: any, myData:any}) {
 export function VideoItemDeleteButton(props: {Icon: any, myData:any}) {
 	const [modalOpen, onChange] = useState(false);
 	function modalToggle() { onChange(!modalOpen); if (modalOpen) {document.body.style.overflow = "visible"} else {document.body.style.overflow = "hidden"}}
-	const [formData, setFormData] = useState({id: props.myData.id})
+	const [formData, setFormData] = useState({id: props.myData.id, subChapterId: props.myData.subChapterId})
 
 	async function callAPI(e: { preventDefault: () => void }) {
 		e.preventDefault()

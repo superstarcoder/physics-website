@@ -20,6 +20,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 
 	await prisma.videoItem.updateMany({
 		where: {
+			subChapterId: dataPassed.subChapterId,
 			orderNum: {
 				gt: orderNum
 			}

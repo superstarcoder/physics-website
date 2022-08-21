@@ -12,7 +12,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 	const dataPassed = JSON.parse(req.body);
 	console.log(dataPassed)
 
-	const savedVideoItem = await prisma.subChapter.delete({
+	const savedVideoItem = await prisma.chapter.delete({
 		where: {
 			id: dataPassed.id
 		}
@@ -20,9 +20,9 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 
 	var orderNum = savedVideoItem.orderNum
 
-	await prisma.subChapter.updateMany({
+	await prisma.chapter.updateMany({
 		where: {
-			chapterId: dataPassed.chapterId,
+			pageId: dataPassed.pageId,
 			orderNum: {
 				gt: orderNum
 			}
