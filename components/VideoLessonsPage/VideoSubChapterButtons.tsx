@@ -2,14 +2,15 @@ import React from 'react'
 import styles from '../../styles/videoLessons.module.scss'
 import { useState } from 'react'
 import Router from "next/router";
+import {v4 as uuidv4} from "uuid";
 
 export function VideoSubChapterMoveUpButton(props: {Icon: any, myData:any}) {
-
 
 	async function callAPI(e: any) {
 		e.preventDefault()
 		var formData = {
-			id: props.myData.id
+			id: props.myData.id,
+			chapterId: props.myData.chapterId
 		}
 		const response = await fetch("/api/videoSubChapter/moveUp", {method: "POST",body: JSON.stringify(formData)})
 		Router.reload();
@@ -29,7 +30,8 @@ export function VideoSubChapterMoveDownButton(props: {Icon: any, myData:any}) {
 	async function callAPI(e: any) {
 		e.preventDefault()
 		var formData = {
-			id: props.myData.id
+			id: props.myData.id,
+			chapterId: props.myData.chapterId
 		}
 		const response = await fetch("/api/videoSubChapter/moveDown", {method: "POST",body: JSON.stringify(formData)})
 		Router.reload();
@@ -42,8 +44,6 @@ export function VideoSubChapterMoveDownButton(props: {Icon: any, myData:any}) {
 		</button>
 	)
 }
-
-
 
 export function VideoSubChapterEditButton(props: {Icon: any, myData:any}) {
 	const [modalOpen, onChange] = useState(false);
@@ -58,7 +58,6 @@ export function VideoSubChapterEditButton(props: {Icon: any, myData:any}) {
 		Router.reload();
 		return await response.json()
 	}
-
 	
 	return (
 		<>
@@ -127,13 +126,27 @@ export function VideoSubChapterDeleteButton(props: {Icon: any, myData: any}) {
 
 export function VideoSubChapterAddButton(props: {Icon: any, myData:any}) {
 	const [modalOpen, onChange] = useState(false);
-	const [formData, setFormData] = useState({chapterId: props.myData.chapterId, title: "", link: ""})
+	const [formData, setFormData] = useState({chapterId: props.myData.chapterId, orderNum: props.myData.orderNum+1, title: "", id: uuidv4()})
 
 	async function callAPI(e: { preventDefault: () => void }) {
 		e.preventDefault()
-		const response = await fetch("/api/videoSubChapter/add", {method: "POST",body: JSON.stringify(formData)})
+		const response = await fetch("/api/videoSubChapter/add", {
+			method: "POST",
+			body: JSON.stringify(formData)
+		})
+		// .then(response => {
+		// 	console.log("response: ", response)
+		// })
+		console.log("response after: ", response)
+		// const data = await response.json();
+		// console.log("data after: ", data)
+
+		const response2 = await fetch("/api/videoItem/add", {method: "POST",body: JSON.stringify({
+			// @ts-ignore
+			subChapterId: formData.id, title: "Video Item", link: "https://www.youtube.com/", orderNum: 1
+		})})
 		Router.reload();
-		return await response.json()
+		// return await response.json()
 	}
 
 	function modalToggle() { onChange(!modalOpen); if (modalOpen) {document.body.style.overflow = "visible"} else {document.body.style.overflow = "hidden"}}

@@ -8,7 +8,8 @@ export function VideoItemMoveUpButton(props: {Icon: any, myData:any}) {
 	async function callAPI(e: any) {
 		e.preventDefault()
 		var formData = {
-			id: props.myData.id
+			id: props.myData.id,
+			subChapterId: props.myData.subChapterId
 		}
 		const response = await fetch("/api/videoItem/moveUp", {method: "POST",body: JSON.stringify(formData)})
 		Router.reload();
@@ -27,7 +28,8 @@ export function VideoItemMoveDownButton(props: {Icon: any, myData:any}) {
 	async function callAPI(e: any) {
 		e.preventDefault()
 		var formData = {
-			id: props.myData.id
+			id: props.myData.id,
+			subChapterId: props.myData.subChapterId
 		}
 		const response = await fetch("/api/videoItem/moveDown", {method: "POST",body: JSON.stringify(formData)})
 		Router.reload();
@@ -124,7 +126,7 @@ export function VideoItemDeleteButton(props: {Icon: any, myData:any}) {
 
 export function VideoItemAddButton(props: {Icon: any, myData: any}) {
 	const [modalOpen, onChange] = useState(false);
-	const [formData, setFormData] = useState({subChapterId: props.myData.subChapterId, title: "", link: ""})
+	const [formData, setFormData] = useState({subChapterId: props.myData.subChapterId, orderNum: props.myData.orderNum+1, title: "", link: ""})
 
 	async function callAPI(e: { preventDefault: () => void }) {
 		e.preventDefault()

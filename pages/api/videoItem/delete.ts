@@ -16,6 +16,20 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 			id: dataPassed.id
 		}
 	})
+	var orderNum = savedVideoItem.orderNum
+
+	await prisma.videoItem.updateMany({
+		where: {
+			orderNum: {
+				gt: orderNum
+			}
+		},
+		data : {
+			orderNum: {
+				decrement: 1
+			}
+		}
+	})
 
 	res.json(savedVideoItem);
 }

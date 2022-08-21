@@ -26,9 +26,10 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 	const currentOrderNum = currentVideoItem.orderNum
 
 
-	const topVideoItem = await prisma.subChapter.findUnique({
+	const topVideoItem = await prisma.subChapter.findFirst({
 		where : {
-			orderNum: currentOrderNum+1
+			orderNum: currentOrderNum+1,
+			chapterId: dataPassed.chapterId
 		}
 	})
 
@@ -37,10 +38,11 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 		return res.status(405).json({message: "Method not allowed"})
 	}
 
-	await prisma.subChapter.update({
+	await prisma.subChapter.updateMany({
 		where : {
 			// @ts-ignore
-			orderNum: currentOrderNum
+			orderNum: currentOrderNum,
+			chapterId: dataPassed.chapterId
 		},
 		data: {
 			// @ts-ignore
@@ -48,10 +50,11 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 		}
 	})
 
-	await prisma.subChapter.update({
+	await prisma.subChapter.updateMany({
 		where : {
 			// @ts-ignore
-			orderNum: currentOrderNum+1
+			orderNum: currentOrderNum+1,
+			chapterId: dataPassed.chapterId
 		},
 		data: {
 			// @ts-ignore
@@ -59,18 +62,17 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 		}
 	})
 
-	const savedVideoItem = await prisma.subChapter.update({
+	const savedVideoItem = await prisma.subChapter.updateMany({
 		where : {
 			// @ts-ignore
-			orderNum: -1
+			orderNum: -1,
+			chapterId: dataPassed.chapterId
 		},
 		data: {
 			// @ts-ignore
 			orderNum: currentOrderNum+1
 		}
-	})
-
-	
+	})	
 
 	res.json(savedVideoItem);
 }
