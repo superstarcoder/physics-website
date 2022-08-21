@@ -15,8 +15,8 @@ export default function VideoChapter(props: {myData:any, title:string, editModeO
           {props.editModeOn && (
             <div className={styles.moveButtonsContainer}>
               <IconContext.Provider value={{ color: "black", className: "arrowIcon", size:"1.1em"}}>
-                <VideoChapterMoveUpButton Icon={AiOutlineArrowUp} />
-                <VideoChapterMoveDownButton Icon={AiOutlineArrowDown} />
+                <VideoChapterMoveUpButton Icon={AiOutlineArrowUp} myData={props.myData} />
+                <VideoChapterMoveDownButton Icon={AiOutlineArrowDown} myData={props.myData} />
               </IconContext.Provider>
             </div>
           )}
@@ -24,9 +24,9 @@ export default function VideoChapter(props: {myData:any, title:string, editModeO
           <h3 className={styles.chapterTitle}>{props.title}</h3>
           {props.editModeOn && (
             <IconContext.Provider value={{ color: "black", className: "arrowIcon", size:"1.7em"}}>
-              <VideoChapterEditButton Icon={AiOutlineEdit}/>
-              <VideoChapterDeleteButton Icon={AiOutlineDelete} />
-              <VideoChapterAddButton Icon={AiOutlinePlus} />
+              <VideoChapterEditButton Icon={AiOutlineEdit} myData={props.myData}/>
+              <VideoChapterDeleteButton Icon={AiOutlineDelete} myData={props.myData} />
+              <VideoChapterAddButton Icon={AiOutlinePlus} myData={props.myData} />
             </IconContext.Provider>
           )}
         </div>
