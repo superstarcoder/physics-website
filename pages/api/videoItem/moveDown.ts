@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../db";
+// import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 export default async (req:NextApiRequest, res:NextApiResponse) => {
 	if (req.method !== "POST") {
@@ -12,12 +13,12 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 	// set wherever it is orderNum+1 to orderNum
 	// set wherever it is -1 to orderNum+1
 
-	const videoItemData = JSON.parse(req.body);
-	console.log("videoItemData", videoItemData)
+	const dataPassed = JSON.parse(req.body);
+	console.log("videoItemData", dataPassed)
 
 	const currentVideoItem = await prisma.videoItem.findUnique({
 		where : {
-			id: videoItemData.id
+			id: dataPassed.id
 		}
 	})
 

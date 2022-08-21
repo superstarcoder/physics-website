@@ -15,8 +15,8 @@ export default function VideoSubChapter(props: {myData:any, title:string, color:
         {props.editModeOn && (
           <div className={styles.moveButtonsContainer}>
             <IconContext.Provider value={{ color: "black", className: "arrowIcon", size:"1.1em"}}>
-              <VideoSubChapterMoveUpButton Icon={AiOutlineArrowUp} />
-              <VideoSubChapterMoveDownButton Icon={AiOutlineArrowDown} />
+              <VideoSubChapterMoveUpButton Icon={AiOutlineArrowUp} myData={props.myData}/>
+              <VideoSubChapterMoveDownButton Icon={AiOutlineArrowDown} myData={props.myData} />
             </IconContext.Provider>
           </div>
         )}
@@ -24,9 +24,9 @@ export default function VideoSubChapter(props: {myData:any, title:string, color:
           <p className={styles.subChapterTitle}>{props.title}</p>
           {props.editModeOn && (
             <IconContext.Provider value={{ color: "black", className: "arrowIcon", size:"1.7em"}}>
-              <VideoSubChapterEditButton Icon={AiOutlineEdit}/>
-              <VideoSubChapterDeleteButton Icon={AiOutlineDelete} />
-              <VideoSubChapterAddButton Icon={AiOutlinePlus} />
+              <VideoSubChapterEditButton Icon={AiOutlineEdit} myData={props.myData}/>
+              <VideoSubChapterDeleteButton Icon={AiOutlineDelete} myData={props.myData} />
+              <VideoSubChapterAddButton Icon={AiOutlinePlus} myData={props.myData}/>
             </IconContext.Provider>
           )}
         </div>

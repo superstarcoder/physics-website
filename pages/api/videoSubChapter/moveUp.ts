@@ -16,7 +16,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 	const dataPassed = JSON.parse(req.body);
 	console.log("videoItemData", dataPassed)
 
-	const currentVideoItem = await prisma.videoItem.findUnique({
+	const currentVideoItem = await prisma.subChapter.findUnique({
 		where : {
 			id: dataPassed.id
 		}
@@ -26,7 +26,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 	const currentOrderNum = currentVideoItem.orderNum
 
 
-	const topVideoItem = await prisma.videoItem.findUnique({
+	const topVideoItem = await prisma.subChapter.findUnique({
 		where : {
 			orderNum: currentOrderNum-1
 		}
@@ -37,7 +37,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 		return res.status(405).json({message: "Method not allowed"})
 	}
 
-	await prisma.videoItem.update({
+	await prisma.subChapter.update({
 		where : {
 			// @ts-ignore
 			orderNum: currentOrderNum
@@ -48,7 +48,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 		}
 	})
 
-	await prisma.videoItem.update({
+	await prisma.subChapter.update({
 		where : {
 			// @ts-ignore
 			orderNum: currentOrderNum-1
@@ -59,7 +59,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 		}
 	})
 
-	const savedVideoItem = await prisma.videoItem.update({
+	const savedVideoItem = await prisma.subChapter.update({
 		where : {
 			// @ts-ignore
 			orderNum: -1

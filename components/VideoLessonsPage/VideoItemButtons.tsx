@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from '../../styles/videoLessons.module.scss'
 import { useState } from 'react'
-import {useForm} from "react-hook-form"
 import Router from "next/router";
 
 export function VideoItemMoveUpButton(props: {Icon: any, myData:any}) {
@@ -49,7 +48,6 @@ export function VideoItemEditButton(props: {Icon: any, myData:any}) {
 
 	async function callAPI(e: any) {
 		e.preventDefault()
-		// setFormData({...formData, title: e.target.title.value, link:e.target.link.value})
 		console.log("FORM DATA",formData)
 		const response = await fetch("/api/videoItem/edit", {method: "POST",body: JSON.stringify(formData)})
 		Router.reload();

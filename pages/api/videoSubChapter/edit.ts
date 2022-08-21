@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
-
 import { prisma } from "../../../db";
+// import { PrismaClient } from "@prisma/client";
+
 // const prisma = new PrismaClient();
 
 export default async (req:NextApiRequest, res:NextApiResponse) => {
@@ -10,17 +10,14 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 	}
 
 	const dataPassed = JSON.parse(req.body);
-	console.log(dataPassed)
+	console.log("videoItemData", dataPassed)
 
-	const savedVideoItem = await prisma.videoItem.create({
+	const savedVideoItem = await prisma.subChapter.update({
+		where : {
+			id: dataPassed.id
+		},
 		data: {
 			title: dataPassed.title,
-			link: dataPassed.link,
-			subChapter: {
-				connect: {
-					id: dataPassed.subChapterId
-				}
-			}
 		}
 	})
 

@@ -135,6 +135,9 @@ export async function getStaticProps(context) {
                   orderNum: "asc"
                 }
               }
+            },
+            orderBy: {
+              orderNum: "asc"
             }
           }
         }
