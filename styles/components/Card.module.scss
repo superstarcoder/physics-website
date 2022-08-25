@@ -240,6 +240,10 @@ $large: 1200px;
 	padding: 0.5em;
 }
 
+.formField[type=color] {
+	padding: 0.1em;
+}
+
 .formField[type=text]:focus {
   // border: 3px solid #3385FF;
 	outline: none;

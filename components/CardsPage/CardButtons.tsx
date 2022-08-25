@@ -68,10 +68,13 @@ export function CardEditButton(props: {Icon: any, myData:any}) {
 						{/* <div > */}
 						{/* <form action="/api/form" method="post"> */}
 						<form className={styles.formContent} onSubmit={callAPI}>
-							<p className={styles.formTitle}>Edit Chapter</p>
+							<p className={styles.formTitle}>Edit Card</p>
 							<label className={styles.formLabel} htmlFor="title">Title</label>
 							<input className={styles.formField} type="text" id="title" name="title" defaultValue={props.myData.title}  onChange={e => setFormData({...formData, title: e.target.value})} required />
-
+							<label className={styles.formLabel} htmlFor="bgImg">Color Theme</label>
+							<input className={styles.formField} type="color" id="colorPicker" name="colorPicker"/>
+							<label className={styles.formLabel} htmlFor="bgImg">Background Image</label>
+							<input className={styles.formField} type="file" id="bgImg" name="bgImg"/>
 							<div className={styles.formButtonRow}>
 								<button className={styles.formSubmitButton} type="submit">Submit</button>
 								<button className={styles.formCancelButton} type="reset" onClick={modalToggle}>Cancel</button>
@@ -146,19 +149,20 @@ export function CardAddButton(props: {Icon: any, myData:any}) {
 			{
 				modalOpen ? (
 					<div className={styles.modalForm}>
-						{/* <div > */}
-						{/* <form action="/api/form" method="post"> */}
 						<form className={styles.formContent} onSubmit={callAPI}>
-							<p className={styles.formTitle}>Add Chapter</p>
+							<p className={styles.formTitle}>Add Card</p>
 							<label className={styles.formLabel} htmlFor="title">Title</label>
-							<input className={styles.formField} type="text" id="title" name="title" onChange={e => setFormData({...formData, title: e.target.value})}  required />
-
+							<input className={styles.formField} type="text" id="title" name="title" defaultValue={props.myData.title}  onChange={e => setFormData({...formData, title: e.target.value})} required />
+							<label className={styles.formLabel} htmlFor="bgImg">Color Theme</label>
+							<input className={styles.formField} type="color" id="colorPicker" name="colorPicker" required/>
+							<label className={styles.formLabel} htmlFor="bgImg">Background Image</label>
+							<input className={styles.formField} type="file" id="bgImg" name="bgImg" required/>
 							<div className={styles.formButtonRow}>
 								<button className={styles.formSubmitButton} type="submit">Submit</button>
 								<button className={styles.formCancelButton} type="reset" onClick={modalToggle}>Cancel</button>
 							</div>
 						</form>
-						</div>
+					</div>
 					// </div>
 				) : (<></>)
 			}

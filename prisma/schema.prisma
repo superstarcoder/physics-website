@@ -29,6 +29,7 @@ model Card {
   page      Page   @relation(fields: [pageId], references: [id], onDelete: Cascade)
   pageId    String
   orderNum  Int
+  imageFile Bytes?
 
   // relPath must be unique for cards in the same page
   // iow: it is illegal for both relPath and pageId to be the same for multiple cards
