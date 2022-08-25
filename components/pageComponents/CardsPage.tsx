@@ -2,14 +2,15 @@ import React from 'react'
 import Head from 'next/head'
 import styles from '../../styles/apPhysics.module.scss'
 
-import Card from '../Card'
-import MiniCard from '../MiniCard'
+import Card from '../CardsPage/Card'
+import MiniCard from '../CardsPage/MiniCard'
 import Navbar from '../Navbar'
 import { useRouter } from 'next/router'
 
 // @ts-ignore
 export default function CardsPage(props: {myData:any}) {
 	const { asPath } = useRouter()
+	let editModeOn = true
 
 	let green = 'rgba(200, 255, 205, 1)'
 	let orange = 'rgba(255, 222, 199, 0.9)'
@@ -49,7 +50,7 @@ export default function CardsPage(props: {myData:any}) {
 				for (const card of props.myData.cards) {
 					ls.push(
 						// @ts-ignore
-						<Card fileName={card.imagePath} color={green} cardTitle={card.title} linkTo={asPath+card.relPath} key={card.id}/>
+						<Card fileName={card.imagePath} color={green} myData={card} cardTitle={card.title} linkTo={asPath+card.relPath} key={card.id} editModeOn={editModeOn}/>
 					)
 				}
 				return ls;

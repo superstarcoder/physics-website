@@ -1,6 +1,6 @@
 import React from 'react'
 // import styles from './Card.module.scss'
-import styles from '../styles/components/MiniCard.module.scss'
+import styles from '../../styles/components/MiniCard.module.scss'
 
 export default function MiniCard(props: {color:string, cardTitle: string, linkTo: string}) {
   return (
