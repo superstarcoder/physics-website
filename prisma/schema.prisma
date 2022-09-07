@@ -10,6 +10,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model NavItem {
+  id        String    @id @default(uuid())
+  title     String
+  page      Page      @relation(fields: [pageId], references: [id])
+  pageId    String
+  navItems  NavItem[] @relation("children")
+  NavItem   NavItem?  @relation("children", fields: [navItemId], references: [id])
+  navItemId String?
+}
+
 model Page {
   id        String     @id @default(uuid())
   path      String     @unique
@@ -19,6 +29,7 @@ model Page {
   cards     Card[]
   miniCards MiniCard[]
   chapters  Chapter[]
+  NavItem   NavItem[]
 }
 
 model Card {
