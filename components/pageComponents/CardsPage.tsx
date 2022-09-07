@@ -50,7 +50,7 @@ export default function CardsPage(props: {myData:any, pagePaths:any}) {
 				for (const card of props.myData.cards) {
 					ls.push(
 						// @ts-ignore
-						<Card fileName={card.imagePath} color={green} myData={card} cardTitle={card.title} linkTo={asPath+card.relPath} key={card.id} editModeOn={editModeOn} pagePaths={props.pagePaths}/>
+						<Card fileName={card.imagePath} color={green} myData={card} cardTitle={card.title} linkTo={card.relPath} key={card.id} editModeOn={editModeOn} pagePaths={props.pagePaths}/>
 					)
 				}
 				return ls;

@@ -29,7 +29,7 @@ export default function Card(props: {fileName: string, color:string, cardTitle: 
 					<div className={styles.editModeButtonsContainer}>
 						<CardMoveLeftButton Icon={AiOutlineArrowLeft} myData={props.myData} />
 						<CardMoveRightButton Icon={AiOutlineArrowRight} myData={props.myData} />
-						<CardEditButton Icon={AiOutlineEdit} myData={props.myData}/>
+						<CardEditButton Icon={AiOutlineEdit} myData={props.myData} pagePaths={props.pagePaths}/>
 						<CardDeleteButton Icon={AiOutlineDelete} myData={props.myData} />
 						<CardAddButton Icon={AiOutlinePlus} myData={props.myData} pagePaths={props.pagePaths}/>
 					</div>

@@ -12,15 +12,27 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 	const dataPassed = JSON.parse(req.body);
 	console.log("videoItemData", dataPassed)
 
-	const savedVideoItem = await prisma.videoItem.update({
+	const savedVideoItem = await prisma.card.update({
 		where : {
 			id: dataPassed.id
 		},
 		data: {
 			title: dataPassed.title,
-			link: dataPassed.link
+			relPath: dataPassed.relPath,
 		}
 	})
+
+	if (dataPassed.imageFile != "") {
+		var base64ImageString = Buffer.from(dataPassed.imageFile, 'binary').toString('base64')
+		const savedVideoItem = await prisma.card.update({
+			where : {
+				id: dataPassed.id
+			},
+			data: {
+				imageFile: base64ImageString,
+			}
+		})
+	}
 
 	res.json(savedVideoItem);
 }
