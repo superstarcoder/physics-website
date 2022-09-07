@@ -6,7 +6,7 @@ import Navbar from '../Navbar'
 import { useRouter } from 'next/router'
 import VideoChapter from '../VideoLessonsPage/VideoChapter'
 
-export default function VideoLessonsPage(props: {myData:any}) {
+export default function VideoLessonsPage(props: {myData:any, pagePaths:any}) {
 
 
 	const { asPath } = useRouter()

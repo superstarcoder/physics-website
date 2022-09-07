@@ -22,14 +22,14 @@ model Page {
 }
 
 model Card {
-  id        String @id @default(uuid())
+  id        String  @id @default(uuid())
   title     String
   relPath   String
   imagePath String
-  page      Page   @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  page      Page    @relation(fields: [pageId], references: [id], onDelete: Cascade)
   pageId    String
   orderNum  Int
-  imageFile Bytes?
+  imageFile String?
 
   // relPath must be unique for cards in the same page
   // iow: it is illegal for both relPath and pageId to be the same for multiple cards

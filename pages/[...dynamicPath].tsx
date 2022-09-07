@@ -115,6 +115,13 @@ export async function getStaticProps(context) {
   }
   console.log(relPath)
 
+  const allPages = await prisma.page.findMany()
+  var pagePaths = []
+  for (const page of allPages) {
+    pagePaths.push(page.path)
+  }
+
+
   const pageData = await prisma.page.findUnique({
     where : {
       path: relPath,
@@ -152,7 +159,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      allData, pageData
+      allData, pageData, pagePaths
     },
   }
 }
@@ -283,13 +290,15 @@ export async function getStaticPaths() {
     splitPath = splitPath.filter(Boolean)
     paths.push({params: {dynamicPath: splitPath}})
   }
+  
+
 
 
   return {paths: paths, fallback: false}
 }
 
 {/* @ts-ignore  */}
-const apPhysics: NextPage = ({allData, pageData}) => {
+const apPhysics: NextPage = ({allData, pageData, pagePaths}) => {
 
   const { asPath } = useRouter()
 
@@ -304,12 +313,18 @@ const apPhysics: NextPage = ({allData, pageData}) => {
   // console.log(typeof(pageData))
   console.dir(pageData,{depth:null})
 
+  // // const keys = allData.keys();
+  // console.log("KEYSSSSS")
+  // console.log(keys)
 
-  if (allData[relPath]["type"] == "cardsPage") {
-    return (<CardsPage myData={pageData} />)
+  console.log("PAGE PATHSSSS")
+  console.log(pagePaths)
+
+  if (pageData.pageType == "cardsPage") {
+    return (<CardsPage myData={pageData} pagePaths={pagePaths} />)
   }
-  else if (allData[relPath]["type"] == "videoLessonsPage") {
-    return (<VideoLessonsPage myData={pageData} />)
+  else if (pageData.pageType == "videoLessonsPage") {
+    return (<VideoLessonsPage myData={pageData} pagePaths={pagePaths} />)
   }
 }
 
