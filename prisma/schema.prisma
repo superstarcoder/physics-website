@@ -13,8 +13,8 @@ datasource db {
 model NavItem {
   id        String    @id @default(uuid())
   title     String
-  page      Page      @relation(fields: [pageId], references: [id])
-  pageId    String
+  page      Page?     @relation(fields: [pageId], references: [id])
+  pageId    String?
   navItems  NavItem[] @relation("children")
   NavItem   NavItem?  @relation("children", fields: [navItemId], references: [id])
   navItemId String?

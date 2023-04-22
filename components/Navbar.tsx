@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styles from '../styles/components/Navbar.module.scss'
 import $ from 'jquery';
 import NavContent from './NavContent';
+import NavContentOld from './NavContentOld';
 import { toggleId } from './Helper';
 
 
@@ -38,7 +39,7 @@ var fileStructure = {
 	},
 }
 
-export default function Navbar() {
+export default function Navbar(props: {editModeOn:boolean, navItemData:any}) {
 
 	// runs when DOM loads
 	// hides navbar text and sets id to '' (instead of 'expanded) for the navbar
@@ -58,7 +59,8 @@ export default function Navbar() {
 	<>
 		{/* navbar contents */}
 		<div className={styles.navbarContainer} id="">
-			<NavContent content={fileStructure} path="" position={1}/>
+		{/* navItemData={props.navItemData} */}
+			<NavContentOld content={fileStructure} path="" position={1} />
 		</div>
 
 		{/* navbar logo */}

@@ -6,7 +6,7 @@ import Navbar from '../Navbar'
 import { useRouter } from 'next/router'
 import VideoChapter from '../VideoLessonsPage/VideoChapter'
 
-export default function VideoLessonsPage(props: {myData:any, pagePaths:any}) {
+export default function VideoLessonsPage(props: {myData:any, pagePaths:any, navItemData:any}) {
 
 
 	const { asPath } = useRouter()
@@ -20,7 +20,7 @@ export default function VideoLessonsPage(props: {myData:any, pagePaths:any}) {
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar />
+      <Navbar editModeOn={editModeOn} navItemData={props.navItemData} />
       <main className={styles.main}>
         <h1 style={{fontSize: "4.5em"}}><a>AP</a> PHYSICS <a>C</a></h1>
         <h2>Video Lessons</h2>

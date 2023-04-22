@@ -121,6 +121,19 @@ export async function getStaticProps(context) {
     pagePaths.push(page.path)
   }
 
+  const navItemData = await prisma.navItem.findMany({
+    where: {
+      NavItem: null,
+      title: "Ap Physics"
+    },
+    include: {
+      page: {
+        include: {
+          cards: true
+        }
+      },
+    }
+  })
 
   const pageData = await prisma.page.findUnique({
     where : {
@@ -159,7 +172,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      allData, pageData, pagePaths
+      allData, pageData, pagePaths, navItemData
     },
   }
 }
@@ -284,21 +297,26 @@ export async function getStaticPaths() {
   //   params: { cardsPagePath:  allData[]},
   // }))
 
+  // var paths = []
+  // for (var path in allData) {
+  //   var splitPath=path.toString().split("/");
+  //   splitPath = splitPath.filter(Boolean) // removes null and undefined values from array
+  //   paths.push({params: {dynamicPath: splitPath}})
+  // }
+
   var paths = []
-  for (var path in allData) {
-    var splitPath=path.toString().split("/");
+  const allPages = await prisma.page.findMany()
+  for (const page of allPages) {
+    var splitPath=page.path.toString().split("/")
     splitPath = splitPath.filter(Boolean)
     paths.push({params: {dynamicPath: splitPath}})
   }
-  
-
-
 
   return {paths: paths, fallback: false}
 }
 
 {/* @ts-ignore  */}
-const apPhysics: NextPage = ({allData, pageData, pagePaths}) => {
+const apPhysics: NextPage = ({allData, pageData, pagePaths, navItemData}) => {
 
   const { asPath } = useRouter()
 
@@ -321,10 +339,10 @@ const apPhysics: NextPage = ({allData, pageData, pagePaths}) => {
   console.log(pagePaths)
 
   if (pageData.pageType == "cardsPage") {
-    return (<CardsPage myData={pageData} pagePaths={pagePaths} />)
+    return (<CardsPage myData={pageData} pagePaths={pagePaths} navItemData={navItemData} />)
   }
   else if (pageData.pageType == "videoLessonsPage") {
-    return (<VideoLessonsPage myData={pageData} pagePaths={pagePaths} />)
+    return (<VideoLessonsPage myData={pageData} pagePaths={pagePaths} navItemData={navItemData} />)
   }
 }
 

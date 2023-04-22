@@ -8,7 +8,7 @@ import Navbar from '../Navbar'
 import { useRouter } from 'next/router'
 
 // @ts-ignore
-export default function CardsPage(props: {myData:any, pagePaths:any}) {
+export default function CardsPage(props: {myData:any, pagePaths:any, navItemData:any}) {
 	const { asPath } = useRouter()
 	let editModeOn = true
 
@@ -25,7 +25,7 @@ export default function CardsPage(props: {myData:any, pagePaths:any}) {
 			<meta name="description" content="" />
 			<link rel="icon" href="/favicon.ico" />
 		</Head>
-		<Navbar />
+		<Navbar editModeOn={editModeOn} navItemData={props.navItemData}/>
 		
 		<main className={styles.main}>
 			{/* <div className={styles.background}></div> */}
@@ -52,6 +52,7 @@ export default function CardsPage(props: {myData:any, pagePaths:any}) {
 						// @ts-ignore
 						<Card fileName={card.imagePath} color={green} myData={card} cardTitle={card.title} linkTo={card.relPath} key={card.id} editModeOn={editModeOn} pagePaths={props.pagePaths}/>
 					)
+
 				}
 				return ls;
 			})()}
