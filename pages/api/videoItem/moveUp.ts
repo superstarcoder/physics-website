@@ -38,7 +38,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 		return res.status(405).json({message: "Method not allowed"})
 	}
 
-	await prisma.videoItem.update({
+	await prisma.videoItem.updateMany({
 		where : {
 			// @ts-ignore
 			orderNum: currentOrderNum,
@@ -50,7 +50,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 		}
 	})
 
-	await prisma.videoItem.update({
+	await prisma.videoItem.updateMany({
 		where : {
 			// @ts-ignore
 			orderNum: currentOrderNum-1,
@@ -62,7 +62,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 		}
 	})
 
-	const savedVideoItem = await prisma.videoItem.update({
+	const savedVideoItem = await prisma.videoItem.updateMany({
 		where : {
 			// @ts-ignore
 			orderNum: -1,
