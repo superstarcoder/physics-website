@@ -6,11 +6,10 @@ import Navbar from '../Navbar'
 import { useRouter } from 'next/router'
 import VideoChapter from '../VideoLessonsPage/VideoChapter'
 
-export default function VideoLessonsPage(props: {myData:any, pagePaths:any, navItemData:any}) {
+export default function VideoLessonsPage(props: {pageData:any, pagePaths:any, navItemData:any}) {
 
 
 	const { asPath } = useRouter()
-	// console.log(asPath)
   let editModeOn = true
 
 	return (
@@ -27,8 +26,7 @@ export default function VideoLessonsPage(props: {myData:any, pagePaths:any, navI
         {(() => {
            let ls = []
            let i = 0
-           // for (const [title, content] of Object.entries(props.content["chapters"])) {
-          for (const chapter of props.myData.chapters) {
+          for (const chapter of props.pageData.chapters) {
              ls.push(<VideoChapter myData={chapter} title={chapter.title} key={chapter.id} editModeOn={editModeOn}/>)
              i++
            }

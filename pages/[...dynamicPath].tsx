@@ -5,122 +5,29 @@ import VideoLessonsPage from '../components/pageComponents/VideoLessonsPage'
 import { useRouter } from 'next/router'
 import { PageType, prisma, PrismaClient } from '@prisma/client'
 
-
-var allData = {
-  "/apPhysics" : {
-    "type" : "cardsPage",
-    "title" : {
-      "name" : "AP PHYSICS C",
-      "font-size" : "4.5em"
-    },
-    "path" : ["apPhysics", "hii"],
-    "cards": {
-      "Video Lessons" : {
-        link: "/video-lessons",
-        image_path: "/apPhysics/video-lessons.jpg"
-      },
-      "Homework Solutions" : {
-        link: "/homework-solutions",
-        image_path: "/apPhysics/hw-solutions.jpg"
-      },
-      "Notes, Presentations, Supplemental Vidoes" : {
-        link: "/physics-honors",
-        image_path: "/apPhysics/others.jpg"
-      },
-    },
-    "mini cards": {
-      "AP Exam Preperation" : {
-        link: "/physics-honors"
-      },
-      "Text Book Information" : {
-        link: "/physics-honors"
-      },
-      "Green Sheet" : {
-        link: "/physics-honors"
-      },
-      "Lynbrook's Academic Honesty Policy" : {
-        link: "/physics-honors"
-      },
-      "Labs" : {
-        link: "/physics-honors"
-      },
-      "Green Stuff" : {
-        link: "/physics-honors"
-      },
-    }
-  },
-  "/apPhysics/video-lessons": {
-    "type" : "videoLessonsPage",
-    "title" : {
-      "name" : "AP PHYSICS C",
-      "font-size" : "4.5em"
-    },
-    "chapters" : {
-      "Chapter 2": {
-        "2.3-2.5" : {
-          "Position and Displacement, Average Velocity and Average Speed" : {
-            "link" : "https://www.youtube.com/watch?v=4Tm6Z1y3h94"
-          },
-          "Instantaneous Velocity and Speed (11:25)" : {
-            "link" : "https://www.youtube.com/"
-          }
-        }
-      },
-      "Chapter 9": {
-        "2.3-2.5" : {
-          "Position and Displacement, Average Velocity and Average Speed" : {
-            "link" : "https://www.youtube.com/"
-          },
-          "Instantaneous Velocity and Speed (11:25)" : {
-            "link" : "https://www.youtube.com/"
-          },
-        },
-        "2.3-2.56" : {
-          "Position and Displacement, Average Velocity and Average Speed" : {
-            "link" : "https://www.youtube.com/"
-          },
-          "Instantaneous Velocity and Speed (11:25)" : {
-            "link" : "https://www.youtube.com/"
-          },
-          "aInstantaneous Velocity and Speed (11:25)" : {
-            "link" : "https://www.youtube.com/"
-          },
-          "bInstantaneous Velocity and Speed (11:25)" : {
-            "link" : "https://www.youtube.com/"
-          },
-          "cInstantaneous Velocity and Speed (11:25)" : {
-            "link" : "https://www.youtube.com/"
-          },
-          "dInstantaneous Velocity and Speed (11:25)" : {
-            "link" : "https://www.youtube.com/"
-          },
-        }
-      }
-    }
-  }
-}
-
 // when to use static vs server side generation
 // https://stackoverflow.com/questions/70873633/when-to-use-getstaticprops-and-getserverside-props-in-real-world-scenario
 
-// This function gets called at build time
+// This function gets called at build time and
 export async function getStaticProps(context) {
-  // const page = await.
 
   const prisma = new PrismaClient()
-  // console.log(typeof(context.params.dynamicPath))
+
+
+  // get relative path of current page (eg: "/apPhysics")
   var relPath = ""
   for (var pathStr of context.params.dynamicPath) {
     relPath += "/" + pathStr
   }
-  console.log(relPath)
 
+  // get a list of all paths (used for linking cards/mini cards to other paths)
   const allPages = await prisma.page.findMany()
   var pagePaths = []
   for (const page of allPages) {
     pagePaths.push(page.path)
   }
 
+  // get navbar data for ap physics page
   const navItemData = await prisma.navItem.findMany({
     where: {
       NavItem: null,
@@ -135,6 +42,7 @@ export async function getStaticProps(context) {
     }
   })
 
+  // get the page data for current page
   const pageData = await prisma.page.findUnique({
     where : {
       path: relPath,
@@ -168,15 +76,30 @@ export async function getStaticProps(context) {
     }
   })
   
-  // console.log(page)
-
+  // return these values to be used as props wherever the page is initialized
   return {
     props: {
-      allData, pageData, pagePaths, navItemData
+      pageData, pagePaths, navItemData
     },
   }
 }
 
+// Next.js will statically pre-render all the paths specified by getStaticPaths
+export async function getStaticPaths() {
+  const prisma = new PrismaClient()
+
+  var paths = []
+  const allPages = await prisma.page.findMany()
+  for (const page of allPages) {
+    var splitPath=page.path.toString().split("/")
+    splitPath = splitPath.filter(Boolean)
+    paths.push({params: {dynamicPath: splitPath}})
+  }
+
+  return {paths: paths, fallback: false}
+}
+
+// function that exists just in case. delete later if unnecessary
 async function resetData(prisma) {
 
   await prisma.videoItem.deleteMany()
@@ -185,9 +108,6 @@ async function resetData(prisma) {
   await prisma.miniCard.deleteMany()
   await prisma.card.deleteMany()
   await prisma.page.deleteMany()
-
-
-
 
   await prisma.page.create({
     data: {
@@ -285,64 +205,24 @@ async function resetData(prisma) {
 
 }
 
-export async function getStaticPaths() {
-  const prisma = new PrismaClient()
+/**
+ * 
+ * @param pageData page's data with all cards and mini cards 
+ * @param pagePaths an array of strings of all the pages' paths in the website
+ * @param navItemData page data that is used for the navbar
+ * @returns 
+ */
 
-  // Call an external API endpoint to get posts
-  // const res = await fetch('https://.../posts')
-  // const posts = await res.json()
+const apPhysics: NextPage = ({pageData, pagePaths, navItemData}) => {
+  
+  // console.dir(pageData,{depth:null})
 
-  // // Get the paths we want to pre-render based on posts
-  // const paths = allData.map((allData) => ({
-  //   params: { cardsPagePath:  allData[]},
-  // }))
-
-  // var paths = []
-  // for (var path in allData) {
-  //   var splitPath=path.toString().split("/");
-  //   splitPath = splitPath.filter(Boolean) // removes null and undefined values from array
-  //   paths.push({params: {dynamicPath: splitPath}})
-  // }
-
-  var paths = []
-  const allPages = await prisma.page.findMany()
-  for (const page of allPages) {
-    var splitPath=page.path.toString().split("/")
-    splitPath = splitPath.filter(Boolean)
-    paths.push({params: {dynamicPath: splitPath}})
-  }
-
-  return {paths: paths, fallback: false}
-}
-
-{/* @ts-ignore  */}
-const apPhysics: NextPage = ({allData, pageData, pagePaths, navItemData}) => {
-
-  const { asPath } = useRouter()
-
-  // console.log({asPath, basePath})
-
-  var relPath = asPath.split(/[?#]/)[0]
-  // console.log(pageData)
-  // console.log(pageData.titleName)
-  // console.log(allData[relPath])
-  // console.log("location:", relPath)
-  // console.log(pageData)
-  // console.log(typeof(pageData))
-  console.dir(pageData,{depth:null})
-
-  // // const keys = allData.keys();
-  // console.log("KEYSSSSS")
-  // console.log(keys)
-
-  console.log("PAGE PATHSSSS")
-  console.log(pagePaths)
-
+  // generate the correct page depending on the page type
   if (pageData.pageType == "cardsPage") {
-    return (<CardsPage myData={pageData} pagePaths={pagePaths} navItemData={navItemData} />)
+    return (<CardsPage pageData={pageData} pagePaths={pagePaths} navItemData={navItemData} />)
   }
   else if (pageData.pageType == "videoLessonsPage") {
-    return (<VideoLessonsPage myData={pageData} pagePaths={pagePaths} navItemData={navItemData} />)
+    return (<VideoLessonsPage pageData={pageData} pagePaths={pagePaths} navItemData={navItemData} />)
   }
 }
 
